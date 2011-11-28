@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="bootstrap.css" library="css"/>
+        <h:outputStylesheet name="container-app.css" library="css"/>
+        <title>SignUp Administration</title>
+        
+    </h:head>
+
+    <h:body>
+
+        <ui:insert name="topbar"/>
+        
+        <div class="container">
+
+            <div class="content">
+                <div class="row page-header" style="padding: 20px 0 10px; font-weight: 500">
+                    <div class="span12">
+                        <ui:insert name="header">
+                            <h1>Page name <small>Supporting text or tagline</small></h1>
+                        </ui:insert>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="span12">
+                        <ui:insert name="submenu"/>
+                        <ui:insert name="content">Content</ui:insert>
+                    </div>
+                    <div class="span4">
+                        <ui:insert name="sidebar">Sidebar</ui:insert>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <ui:insert name="footer">
+                    <p>&copy; Company 2011</p>
+                </ui:insert>
+            </footer>
+
+        </div> <!-- /container -->
+
+    </h:body>
+
+</html>
