@@ -9,45 +9,46 @@ import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 
 import org.company.model.Member;
+import org.company.service.MemberService;
 
 // The @Stateful annotation eliminates the need for manual transaction demarcation
-@Stateful
-// The @Model stereotype is a convenience mechanism to make this a request-scoped bean that has an
+//@Stateful
+// The @Model stereotype is a convenience mechanism to make this a
+// request-scoped bean that has an
 // EL name
 // Read more about the @Model stereotype in this FAQ:
 // http://sfwk.org/Documentation/WhatIsThePurposeOfTheModelAnnotation
 @Model
 public class MemberRegistration {
 
-   @Inject
-   private Logger log;
+	@Inject
+	private Logger log;
 
-   @Inject
-   private EntityManager em;
+	@Inject
+	private MemberService memberService;
 
-   @Inject
-   private Event<Member> memberEventSrc;
+	@Inject
+	private Event<Member> memberEventSrc;
 
-   private Member newMember;
+	private Member newMember;
 
-   @Produces
-   @Named
-   public Member getNewMember() {
-      return newMember;
-   }
+	@Produces
+	@Named
+	public Member getNewMember() {
+		return newMember;
+	}
 
-   public void register() throws Exception {
-      log.info("Registering " + newMember.getName());
-      em.persist(newMember);
-      memberEventSrc.fire(newMember);
-      initNewMember();
-   }
+	public void register() throws Exception {
+		log.info("Registering " + newMember.getName());
+		memberService.register(newMember);
+		memberEventSrc.fire(newMember);
+		initNewMember();
+	}
 
-   @PostConstruct
-   public void initNewMember() {
-      newMember = new Member();
-   }
+	@PostConstruct
+	public void initNewMember() {
+		newMember = new Member();
+	}
 }
