@@ -18,7 +18,7 @@ import org.company.service.SignupRequestService;
 @Named
 @ApplicationScoped
 @Alternative
-public class MockMemberService implements SignupRequestService {
+public class MockSignupRequestService implements SignupRequestService {
 
 	private ConcurrentHashMap<String, SignupRequest> memberCache = new ConcurrentHashMap<String, SignupRequest>();
 

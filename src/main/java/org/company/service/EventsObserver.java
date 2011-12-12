@@ -1,0 +1,21 @@
+package org.company.service;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Any;
+import javax.inject.Inject;
+
+import org.company.model.SignupRequest;
+
+@ApplicationScoped
+public class EventsObserver {
+	
+	@Inject
+	@Any 
+	MailSender sender;
+	
+	public void onRegister(@Observes SignupRequest m){
+		sender.send(m);
+	}
+
+}

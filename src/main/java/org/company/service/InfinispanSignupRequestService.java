@@ -16,7 +16,7 @@ import org.infinispan.Cache;
 
 @Named
 @ApplicationScoped
-public class InfinispanMemberService implements SignupRequestService {
+public class InfinispanSignupRequestService implements SignupRequestService {
 
 	@Inject
 	private Cache<String, SignupRequest> memberCache;
