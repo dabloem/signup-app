@@ -52,7 +52,7 @@ public class InfinispanMemberService implements SignupRequestService {
 	@Override
 	public void decline(String email) {
 		SignupRequest m = get(email);
-		m.setStatus(Status.DECLINED);
+		m.setStatus(Status.DENIED);
 		memberCache.put(email, m);
 	}
 }
