@@ -6,6 +6,9 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
+import org.company.config.Resources;
+import org.company.controller.SingupRequestHome;
+import org.company.model.SignupRequest;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -15,32 +18,28 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.company.controller.MemberRegistration;
-import org.company.model.Member;
-import org.company.util.Resources;
-
 @RunWith(Arquillian.class)
 public class MemberRegistrationTest {
    @Deployment
    public static Archive<?> createTestArchive() {
       return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addClasses(Member.class, MemberRegistration.class, Resources.class)
+            .addClasses(SignupRequest.class, SingupRequestHome.class, Resources.class)
             .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
    @Inject
-   MemberRegistration memberRegistration;
+   SingupRequestHome memberRegistration;
 
    @Inject
    Logger log;
 
    @Test
    public void testRegister() throws Exception {
-      Member newMember = memberRegistration.getNewMember();
-      newMember.setName("Jane Doe");
+      SignupRequest newMember = memberRegistration.getNewMember();
+
       newMember.setEmail("jane@mailinator.com");
-      newMember.setPhoneNumber("2125551234");
+ 
       memberRegistration.register();
       assertNotNull(newMember.getId());
       log.info(newMember.getName() + " was persisted with id " + newMember.getId());

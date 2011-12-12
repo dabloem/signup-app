@@ -1,51 +1,58 @@
 package org.company.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.company.model.Member;
+import org.company.model.SignupRequest;
+import org.company.model.Status;
 import org.infinispan.Cache;
 
 @Named
 @ApplicationScoped
-public class InfinispanMemberService implements MemberService {
+public class InfinispanMemberService implements SignupRequestService {
 
 	@Inject
-	private Cache<String, Member> memberCache;
+	private Cache<String, SignupRequest> memberCache;
+	
+	@Inject
+	Event<SignupRequest> registerationEventSrc;
 
 	@Override
-	public List<Member> getAllMembers() {
-		return new ArrayList<Member>(memberCache.values());
+	public List<SignupRequest> getAllMembers() {
+		return new ArrayList<SignupRequest>(memberCache.values());
 	}
 
 	@Override
-	public void register(Member m) {
+	public void register(SignupRequest m) {
 		memberCache.putIfAbsent(m.getEmail(), m, 24, TimeUnit.HOURS);
+		registerationEventSrc.fire(m);
 	}
 
 	@Override
-	public Member get(String email) {
+	public SignupRequest get(String email) {
 		return memberCache.get(email);
 
 	}
 
 	@Override
 	public void approve(String email) {
-		Member m = get(email);
-		m.setActive(true);
+		SignupRequest m = get(email);
+		m.setStatus(Status.APPROVED);
 		memberCache.put(email, m);
 
 	}
 
 	@Override
 	public void decline(String email) {
-		Member m = get(email);
-		m.setActive(false);
+		SignupRequest m = get(email);
+		m.setStatus(Status.DECLINED);
 		memberCache.put(email, m);
 	}
 }

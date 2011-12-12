@@ -10,44 +10,46 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
 import javax.inject.Named;
 
-import org.company.model.Member;
-import org.company.service.MemberService;
+import org.company.model.SignupRequest;
+import org.company.model.Status;
+import org.company.service.SignupRequestService;
+
 
 @Named
 @ApplicationScoped
 @Alternative
-public class MockMemberService implements MemberService {
+public class MockMemberService implements SignupRequestService {
 
-	private ConcurrentHashMap<String, Member> memberCache = new ConcurrentHashMap<String, Member>();
+	private ConcurrentHashMap<String, SignupRequest> memberCache = new ConcurrentHashMap<String, SignupRequest>();
 
 	@Override
-	public List<Member> getAllMembers() {
-		return new ArrayList<Member>(memberCache.values());
+	public List<SignupRequest> getAllMembers() {
+		return new ArrayList<SignupRequest>(memberCache.values());
 	}
 
 	@Override
-	public void register(Member m) {
+	public void register(SignupRequest m) {
 		memberCache.putIfAbsent(m.getEmail(), m);
 	}
 
 	@Override
-	public Member get(String email) {
+	public SignupRequest get(String email) {
 		return memberCache.get(email);
 
 	}
 
 	@Override
 	public void approve(String email) {
-		Member m = get(email);
-		m.setActive(true);
+		SignupRequest m = get(email);
+		m.setStatus(Status.APPROVED);
 		memberCache.put(email, m);
 
 	}
 
 	@Override
 	public void decline(String email) {
-		Member m = get(email);
-		m.setActive(false);
+		SignupRequest m = get(email);
+		m.setStatus(Status.DECLINED);
 		memberCache.put(email, m);
 	}
 }
