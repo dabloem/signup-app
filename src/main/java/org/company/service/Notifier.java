@@ -2,7 +2,7 @@ package org.company.service;
 
 import org.company.model.SignupRequest;
 
-public interface MailSender {
+public interface Notifier {
 
-	public void send(SignupRequest m);
+	public void notify(SignupRequest m);
 }
