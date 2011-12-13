@@ -5,14 +5,16 @@ import java.util.List;
 import org.company.model.SignupRequest;
 
 public interface SignupRequestService {
-	List<SignupRequest> getAllMembers();
+	public abstract List<SignupRequest> getAllRequests();
 
-	void register(SignupRequest m);
+	public abstract void register(SignupRequest m);
 
-	SignupRequest get(String email);
-	
-	void approve(String email);
-	
-	void decline(String email);
+	public abstract SignupRequest get(String id);
+
+	public abstract void approve(String id);
+
+	public abstract void decline(String id);
+
+	public abstract void confirm(String id);
 
 }

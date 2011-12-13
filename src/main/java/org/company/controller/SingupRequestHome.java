@@ -29,10 +29,10 @@ public class SingupRequestHome {
 	private Logger log;
 
 	@Inject
-	private SignupRequestService memberService;
+	private SignupRequestService requestService;
 
 	@Inject
-	private Event<SignupRequest> memberEventSrc;
+	private Event<SignupRequest> requestEventSrc;
 
 	private SignupRequest newMember;
 
@@ -44,8 +44,8 @@ public class SingupRequestHome {
 
 	public void register() throws Exception {
 		log.info("Registering " + newMember.getName());
-		memberService.register(newMember);
-		memberEventSrc.fire(newMember);
+		requestService.register(newMember);
+		requestEventSrc.fire(newMember);
 		initNewMember();
 	}
 

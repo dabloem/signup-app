@@ -20,26 +20,26 @@ import org.company.service.SignupRequestService;
 @RequestScoped
 public class SignupRequestListProducer {
 	@Inject
-	private SignupRequestService memberService;
+	private SignupRequestService requestService;
 
-	private List<SignupRequest> members;
+	private List<SignupRequest> requests;
 
 	// @Named provides access the return value via the EL variable name
-	// "members" in the UI (e.g.,
+	// "requests" in the UI (e.g.,
 	// Facelets or JSP view)
 	@Produces
 	@Named
 	public List<SignupRequest> getMembers() {
-		return members;
+		return requests;
 	}
 
 	public void onMemberListChanged(
-			@Observes(notifyObserver = Reception.IF_EXISTS) final SignupRequest member) {
+			@Observes(notifyObserver = Reception.IF_EXISTS) final SignupRequest request) {
 		retrieveAllMembersOrderedByName();
 	}
 
 	@PostConstruct
 	public void retrieveAllMembersOrderedByName() {
-		this.members = memberService.getAllMembers();
+		this.requests = requestService.getAllRequests();
 	}
 }

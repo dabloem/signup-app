@@ -27,15 +27,15 @@ public class SignupRequestRestService {
 
 	@GET
 	@Produces("text/xml")
-	public List<SignupRequest> listAllMembers() {
-		List<SignupRequest> results = signupRequestService.getAllMembers();
+	public List<SignupRequest> listAllRequsts() {
+		List<SignupRequest> results = signupRequestService.getAllRequests();
 		return results;
 	}
 
 	@GET
 	@Path("/{id}")
 	@Produces("text/xml")
-	public SignupRequest lookupMemberById(@PathParam("id") String email) {
+	public SignupRequest lookupById(@PathParam("id") String email) {
 		return signupRequestService.get(email);
 	}
 }

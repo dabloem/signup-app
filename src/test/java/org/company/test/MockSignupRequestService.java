@@ -23,7 +23,7 @@ public class MockSignupRequestService implements SignupRequestService {
 	private ConcurrentHashMap<String, SignupRequest> memberCache = new ConcurrentHashMap<String, SignupRequest>();
 
 	@Override
-	public List<SignupRequest> getAllMembers() {
+	public List<SignupRequest> getAllRequests() {
 		return new ArrayList<SignupRequest>(memberCache.values());
 	}
 
@@ -51,5 +51,8 @@ public class MockSignupRequestService implements SignupRequestService {
 		SignupRequest m = get(email);
 		m.setStatus(Status.DENIED);
 		memberCache.put(email, m);
+	}
+
+	public void confirm(String id) {
 	}
 }
