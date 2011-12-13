@@ -3,6 +3,7 @@ package org.company.service;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.company.model.SignupRequest;
@@ -12,10 +13,12 @@ public class EventsObserver {
 	
 	@Inject
 	@Any 
-	MailSender sender;
+	Instance<Notifier> notifiers;
 	
-	public void onRegister(@Observes SignupRequest m){
-		sender.send(m);
+	public void onRegister(@Observes SignupRequest signupRequest){
+            for (Notifier notifier : notifiers){
+		notifier.notify(signupRequest);
+            }
 	}
 
 }

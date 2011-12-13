@@ -105,4 +105,9 @@ public class SignupRequest implements Serializable {
 				+ (this.getLastName() == null ? "" : this.getLastName());
 	}
 
+        @Override
+        public String toString() {
+            return "SignupRequest{" + "email=" + email + ", companyName=" + companyName + ", firstName=" + firstName + ", lastName=" + lastName + ", status=" + status + '}';
+        }
+        
 }
