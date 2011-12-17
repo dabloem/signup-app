@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -42,8 +43,23 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	Event<SignupRequest> registerationEventSrc;
 
 	@Override
-	public List<SignupRequest> getAllRequests() {
+	public List<SignupRequest> getAllUnconfirmedRequests() {
 		return new ArrayList<SignupRequest>(unconfirmedCache.values());
+	}
+
+	@Override
+	public List<SignupRequest> getAllConfirmedRequests() {
+		return new ArrayList<SignupRequest>(confirmedCache.values());
+	}
+
+	@Override
+	public List<SignupRequest> getAllApprovedRequests() {
+		return new ArrayList<SignupRequest>(approvedCache.values());
+	}
+
+	@Override
+	public List<SignupRequest> getAllDeniedRequests() {
+		return new ArrayList<SignupRequest>(deniedCache.values());
 	}
 
 	@Override
@@ -75,6 +91,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	@Override
 	public void confirm(String id) {
 		SignupRequest m = unconfirmedCache.get(id);
+		unconfirmedCache.remove(id);
 		m.setStatus(Status.CONFIRMED);
 		confirmedCache.put(id, m);
 	}
@@ -82,6 +99,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	@Override
 	public void approve(String id) {
 		SignupRequest m = confirmedCache.get(id);
+		confirmedCache.remove(id);
 		m.setStatus(Status.APPROVED);
 		approvedCache.put(id, m);
 	}
@@ -89,7 +107,9 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	@Override
 	public void decline(String id) {
 		SignupRequest m = confirmedCache.get(id);
+		confirmedCache.remove(id);
 		m.setStatus(Status.DENIED);
 		deniedCache.put(id, m);
 	}
+
 }

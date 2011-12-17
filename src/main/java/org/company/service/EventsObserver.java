@@ -10,15 +10,15 @@ import org.company.model.SignupRequest;
 
 @ApplicationScoped
 public class EventsObserver {
-	
+
 	@Inject
-	@Any 
+	// @Any
 	Instance<Notifier> notifiers;
-	
-	public void onRegister(@Observes SignupRequest signupRequest){
-            for (Notifier notifier : notifiers){
-		notifier.notify(signupRequest);
-            }
+
+	public void onRegister(@Observes SignupRequest signupRequest) {
+		for (Notifier notifier : notifiers) {
+			notifier.notify(signupRequest);
+		}
 	}
 
 }

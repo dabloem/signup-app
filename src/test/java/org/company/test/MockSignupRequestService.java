@@ -23,7 +23,7 @@ public class MockSignupRequestService implements SignupRequestService {
 	private ConcurrentHashMap<String, SignupRequest> memberCache = new ConcurrentHashMap<String, SignupRequest>();
 
 	@Override
-	public List<SignupRequest> getAllRequests() {
+	public List<SignupRequest> getAllUnconfirmedRequests() {
 		return new ArrayList<SignupRequest>(memberCache.values());
 	}
 
@@ -54,5 +54,23 @@ public class MockSignupRequestService implements SignupRequestService {
 	}
 
 	public void confirm(String id) {
+	}
+
+	@Override
+	public List<SignupRequest> getAllConfirmedRequests() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<SignupRequest> getAllApprovedRequests() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<SignupRequest> getAllDeniedRequests() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

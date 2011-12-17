@@ -28,7 +28,7 @@ public class SignupRequestRestService {
 	@GET
 	@Produces("text/xml")
 	public List<SignupRequest> listAllRequsts() {
-		List<SignupRequest> results = signupRequestService.getAllRequests();
+		List<SignupRequest> results = signupRequestService.getAllUnconfirmedRequests();
 		return results;
 	}
 

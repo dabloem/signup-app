@@ -268,7 +268,7 @@
 			<!-- An optional Arquillian testing profile that executes tests in a remote 
 				JBoss AS instance -->
 			<!-- Run with: mvn clean test -Parq-jbossas-remote -->
-			<id>arq-jbossas-remote</id>
+			<id>arq-jbossas-remote-7</id>
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.as</groupId>

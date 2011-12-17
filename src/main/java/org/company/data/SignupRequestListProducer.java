@@ -40,6 +40,6 @@ public class SignupRequestListProducer {
 
 	@PostConstruct
 	public void retrieveAllMembersOrderedByName() {
-		this.requests = requestService.getAllRequests();
+		this.requests = requestService.getAllUnconfirmedRequests();
 	}
 }
