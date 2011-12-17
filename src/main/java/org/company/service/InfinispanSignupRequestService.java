@@ -66,7 +66,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	public void register(SignupRequest m) {
 		m.setId(UUID.randomUUID().toString());
 		m.setStatus(Status.UNCONFIRMED);
-		unconfirmedCache.putIfAbsent(m.getId(), m, 24, TimeUnit.HOURS);
+		unconfirmedCache.put(m.getId(), m, 24, TimeUnit.HOURS);
 		registerationEventSrc.fire(m);
 	}
 

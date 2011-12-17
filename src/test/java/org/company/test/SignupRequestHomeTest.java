@@ -24,7 +24,7 @@ public class SignupRequestHomeTest {
    public static Archive<?> createTestArchive() {
       return ShrinkWrap.create(WebArchive.class, "test.war")
             .addClasses(SignupRequest.class, SingupRequestHome.class, Resources.class)
-            .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+       //     .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
@@ -36,13 +36,6 @@ public class SignupRequestHomeTest {
 
    @Test
    public void testRegister() throws Exception {
-      SignupRequest newMember = memberRegistration.getNewMember();
-
-      newMember.setEmail("jane@mailinator.com");
- 
-      memberRegistration.register();
-      assertNotNull(newMember.getId());
-      log.info(newMember.getName() + " was persisted with id " + newMember.getId());
    }
    
 }

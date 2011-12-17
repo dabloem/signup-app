@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h1>Approved Signup Requests</h1>
+
+		<p>
+			<h:messages globalOnly="true" errorClass="errorClass" />
+		</p>
+		<h:panelGroup rendered="#{empty approvedRequests}">
+			<em>No approved objs.</em>
+		</h:panelGroup>
+		<h:dataTable var="obj" value="#{approvedRequests}"
+			rendered="#{not empty approvedRequests}">
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+                #{obj.id}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+                #{obj.name}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+                #{obj.email}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Company Nmae</f:facet>
+                #{obj.companyName}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Http Referer</f:facet>
+                #{obj.httpRefer}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Comment</f:facet>
+                #{obj.comment}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Created On</f:facet>
+				<h:outputText value="#{obj.createdOn}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Action</f:facet>
+				<a href="#{request.contextPath}/rest/signup/#{obj.id}">REST
+					URL:/rest/signup/#{obj.id}</a>
+				#{' '}
+				<h:link outcome="/objDetail.xhtml" value="View">
+					<f:param name="id" value="#{obj.id}" />
+				</h:link>
+			</h:column>
+			<f:facet name="footer">
+                REST URL for all Unconfirmed Requests: <a
+					href="#{request.contextPath}/rest/signup/approved">/rest/signup/approved</a>
+			</f:facet>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>

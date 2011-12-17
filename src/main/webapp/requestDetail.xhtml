@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="id" value="#{viewAction.requestId}" />
+			<f:event listener="#{viewAction.loadRequest}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="content">
+		<h1>Signup Request Detail</h1>
+
+		<p></p>
+		<table>
+			<tr>
+				<th style="text-align: right;"><h:outputText value="Id" /></th>
+				<td><h:outputText value="#{viewAction.currentRequest.id}" /></td>
+			</tr>
+			<tr>
+				<th style="text-align: right;"><h:outputText value="Name" /></th>
+				<td><h:outputText value="#{viewAction.currentRequest.name}" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;"><h:outputText value=" Email " /></th>
+				<td><h:outputText value="#{viewAction.currentRequest.email}" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;"><h:outputText
+						value="Company Name" /></th>
+				<td><h:outputText
+						value="#{viewAction.currentRequest.companyName}" /></td>
+			</tr>
+			<tr>
+				<th style="text-align: right;"><h:outputText
+						value="Http Referer" /></th>
+				<td><h:outputText
+						value="#{viewAction.currentRequest.httpRefer}" /></td>
+			</tr>
+			<tr>
+				<th style="text-align: right;"><h:outputText value="Comment" /></th>
+				<td><h:outputText value="#{viewAction.currentRequest.comment}" /></td>
+			</tr>
+			<tr>
+				<th style="text-align: right;"><h:outputText
+						value="Created On " /></th>
+				<td><h:outputText
+						value="#{viewAction.currentRequest.createdOn}" /></td>
+			</tr>
+			<tr>
+				<th style="text-align: right;"><h:outputText value="Status " /></th>
+				<td><h:outputText value="#{viewAction.currentRequest.status}" />
+				</td>
+			</tr>
+		</table>
+	</ui:define>
+</ui:composition>

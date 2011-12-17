@@ -1,45 +1,70 @@
 package org.company.data;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.company.model.SignupRequest;
 import org.company.service.SignupRequestService;
 
-
-@RequestScoped
+@ApplicationScoped
 public class SignupRequestListProducer {
+	@Inject
+	Logger log;
+
 	@Inject
 	private SignupRequestService requestService;
 
-	private List<SignupRequest> requests;
+	private List<SignupRequest> unconfirmedRequests;
+	private List<SignupRequest> confirmedRequests;
+	private List<SignupRequest> approvedRequests;
+	private List<SignupRequest> deniedRequests;
 
-	// @Named provides access the return value via the EL variable name
-	// "requests" in the UI (e.g.,
-	// Facelets or JSP view)
 	@Produces
-	@Named
-	public List<SignupRequest> getMembers() {
-		return requests;
+	@Named("unconfirmedRequests")
+	public List<SignupRequest> getAllUnconfirmedRequests() {
+		return unconfirmedRequests;
 	}
 
-	public void onMemberListChanged(
+	@Produces
+	@Named("confirmedRequests")
+	public List<SignupRequest> getAllConfirmedRequests() {
+		return confirmedRequests;
+	}
+
+	@Produces
+	@Named("approvedRequests")
+	public List<SignupRequest> getAllApprovedRequests() {
+		return approvedRequests;
+	}
+
+	@Produces
+	@Named("deniedRequests")
+	public List<SignupRequest> getAllDeniedRequests() {
+		return deniedRequests;
+	}
+
+	public void onSignupRequestListChanged(
 			@Observes(notifyObserver = Reception.IF_EXISTS) final SignupRequest request) {
-		retrieveAllMembersOrderedByName();
+		retrieveSignupRequests();
 	}
 
 	@PostConstruct
-	public void retrieveAllMembersOrderedByName() {
-		this.requests = requestService.getAllUnconfirmedRequests();
+	public void retrieveSignupRequests() {
+		this.unconfirmedRequests = requestService.getAllUnconfirmedRequests();
+		log.info("unconfirmedRequests size@"+unconfirmedRequests.size());
+		this.confirmedRequests = requestService.getAllConfirmedRequests();
+		log.info("confirmedRequests size@"+confirmedRequests.size());
+		this.approvedRequests = requestService.getAllApprovedRequests();
+		log.info("approvedRequests size@"+approvedRequests.size());
+		this.deniedRequests = requestService.getAllDeniedRequests();
+		log.info("deniedRequests size@"+deniedRequests.size());
 	}
 }
