@@ -10,7 +10,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriInfo;
 
 import org.company.model.SignupRequest;
 import org.company.service.SignupRequestService;
@@ -27,6 +29,8 @@ public class SignupRequestRestService {
 
 	@Inject
 	private SignupRequestService signupRequestService;
+	
+	@Context UriInfo uriInfo;
 
 	@GET
 	@Produces("text/xml")
@@ -73,9 +77,18 @@ public class SignupRequestRestService {
 
 	@POST
 	@Path("/register")
-	@Consumes("text/xml")
-	public void register(SignupRequest request) {
-		signupRequestService.register(request);
+	@Consumes("application/x-www-form-urlencoded")
+	public void register(MultivaluedMap<String, String> formParams) {
+		SignupRequest _request = new SignupRequest();
+		_request.setFirstName(formParams.getFirst(SignupRequest.ATTR_FIRSTNAME));
+		_request.setLastName(formParams.getFirst(SignupRequest.ATTR_LASTNAME));
+		_request.setCompanyName(formParams
+				.getFirst(SignupRequest.ATTR_COMPANY_NAME));
+		_request.setEmail(formParams.getFirst(SignupRequest.ATTR_EMAIL));
+		_request.setComment(formParams.getFirst(SignupRequest.ATTR_COMMENT));
+		_request.setHttpRefer(uriInfo.getRequestUri().toASCIIString());
+
+		signupRequestService.register(_request);
 	}
 
 	@Path("/confirm/{id}")

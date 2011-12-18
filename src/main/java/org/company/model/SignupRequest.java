@@ -10,6 +10,13 @@ public class SignupRequest implements Serializable {
 	/** Default value included to remove warning. Remove or modify at will. **/
 	private static final long serialVersionUID = 1L;
 
+	public static final String ATTR_EMAIL = "email";
+	public static final String ATTR_FIRSTNAME = "firstName";
+	public static final String ATTR_LASTNAME = "lastName";
+	public static final String ATTR_HTTP_REFERER = "httpRefer";
+	public static final String ATTR_COMMENT = "comment";
+	public static final String ATTR_COMPANY_NAME = "companyName";
+
 	private String id;
 
 	private String email;
@@ -100,14 +107,16 @@ public class SignupRequest implements Serializable {
 		this.status = status;
 	}
 
-	public String  getName() {
+	public String getName() {
 		return (this.getFirstName() == null ? "" : this.getFirstName())
 				+ (this.getLastName() == null ? "" : this.getLastName());
 	}
 
-        @Override
-        public String toString() {
-            return "SignupRequest{" + "email=" + email + ", companyName=" + companyName + ", firstName=" + firstName + ", lastName=" + lastName + ", status=" + status + '}';
-        }
-        
+	@Override
+	public String toString() {
+		return "SignupRequest{" + "email=" + email + ", companyName="
+				+ companyName + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", status=" + status + '}';
+	}
+
 }

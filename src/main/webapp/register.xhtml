@@ -52,13 +52,56 @@
 
 			</table>
 			<p>
-				<h:commandButton id="register"
-					action="#{registerAction.register}" value="Register" />
+				<h:commandButton id="register" action="#{registerAction.register}"
+					value="Register" />
 				<h:outputText value=" Registered!"
 					rendered="#{facesContext.postback and empty facesContext.messageList}"
 					style="color: green;" />
 			</p>
 		</h:form>
 
+		<p>The following is submit via plain HTML</p>
+
+		<form method="post"
+			action="http://localhost:8080/signup/rest/signup/resgiter">
+			<table>
+				<tr>
+					<th style="text-align: right;"><label for="firstName">First
+							Name:</label></th>
+					<td><input type="text" id="firstName" name="firstName" /></td>
+				</tr>
+				<tr>
+					<th style="text-align: right;"><label for="lastName">Last
+							Name:</label></th>
+					<td><input type="text" id="lastName" name="lastName" /></td>
+				</tr>
+				<tr>
+					<th style="text-align: right;"><label for="email">Email:</label>
+					</th>
+					<td><input type="text" id="email" name="email" /></td>
+				</tr>
+				<tr>
+					<th style="text-align: right;">
+					<label for="companyName">Company Name:</label>
+					<td>
+					<input type="text" id="companyName" name="companyName" />
+					</td>
+				</tr>
+
+				<tr>
+					<th style="text-align: right;"><h:outputLabel for="comment"
+							value="Comment:" />
+							<label for="comment">Comment:</label>
+							</th>
+					<td>
+						<textarea id="comment" name="comment" cols="30" rows="8"></textarea>
+					</td>
+				</tr>
+
+			</table>
+			<p>
+				<input type="submit">Register via Rest POST</input> 
+			</p>
+			</h:form>
 	</ui:define>
 </ui:composition>

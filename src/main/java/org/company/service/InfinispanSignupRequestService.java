@@ -1,13 +1,13 @@
 package org.company.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -25,7 +25,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 
 	@Inject
 	@UnconfirmedCache
-	private Cache<String, SignupRequest> unconfirmedCache;
+	private Cache<String, Object> unconfirmedCache;
 
 	@Inject
 	@ConfirmedCache
@@ -44,7 +44,12 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 
 	@Override
 	public List<SignupRequest> getAllUnconfirmedRequests() {
-		return new ArrayList<SignupRequest>(unconfirmedCache.values());
+		Collection<Object> _values = unconfirmedCache.values();
+		List<SignupRequest> _result = new ArrayList<SignupRequest>();
+		for (Object o : _values) {
+			_result.add((SignupRequest) o);
+		}
+		return _result;
 	}
 
 	@Override
@@ -72,7 +77,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 
 	@Override
 	public SignupRequest get(String id) {
-		SignupRequest _m = unconfirmedCache.get(id);
+		SignupRequest _m = (SignupRequest) unconfirmedCache.get(id);
 		if (_m == null) {
 			_m = confirmedCache.get(id);
 		}
@@ -90,7 +95,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 
 	@Override
 	public void confirm(String id) {
-		SignupRequest m = unconfirmedCache.get(id);
+		SignupRequest m = (SignupRequest) unconfirmedCache.get(id);
 		unconfirmedCache.remove(id);
 		m.setStatus(Status.CONFIRMED);
 		confirmedCache.put(id, m);
