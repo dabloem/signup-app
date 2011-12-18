@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="label" required="true"/>
+        <cc:attribute name="value" required="true"/>
+        <cc:attribute name="styleClass"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <div class="clearfix">
+            <h:outputLabel for="#{cc.clientId}:input" value="#{cc.attrs.label}"/>
+            <div class="input">
+                <h:inputText styleClass="#{cc.attrs.styleClass}" id="input" value="#{cc.attrs.value}"/>
+            </div>
+        </div>
+    </cc:implementation>
+</html>
