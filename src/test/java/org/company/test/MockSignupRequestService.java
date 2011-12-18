@@ -47,7 +47,7 @@ public class MockSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
-	public void decline(String email) {
+	public void deny(String email) {
 		SignupRequest m = get(email);
 		m.setStatus(Status.DENIED);
 		memberCache.put(email, m);

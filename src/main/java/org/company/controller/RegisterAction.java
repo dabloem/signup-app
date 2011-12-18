@@ -3,8 +3,6 @@ package org.company.controller;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.crypto.SecretKey;
-import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Event;
@@ -13,11 +11,12 @@ import javax.inject.Named;
 
 import org.company.model.SignupRequest;
 import org.company.service.SignupRequestService;
+import org.company.service.events.Registered;
 
 @Named("registerAction")
 @ConversationScoped
 // @Stateful
-public class SingupRequestRegisterAction implements Serializable {
+public class RegisterAction implements Serializable {
 
 	// @Inject
 	// private Logger log;
@@ -33,19 +32,17 @@ public class SingupRequestRegisterAction implements Serializable {
 	@Inject
 	Conversation convesation;
 
-	@Inject
-	private Event<SignupRequest> requestEventSrc;
-
 	private SignupRequest currentRequest;
 
-	public void register() throws Exception {
+	public String register() throws Exception {
 		// log.info("Registering " + currentRequest.getName());
 		requestService.register(currentRequest);
-		requestEventSrc.fire(currentRequest);
-
+		
 		if (!convesation.isTransient()) {
 			convesation.end();
 		}
+		
+		return "/ok?faces-redirect=true";
 
 	}
 

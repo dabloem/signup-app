@@ -19,7 +19,7 @@ public interface SignupRequestService {
 
 	public abstract void approve(String id);
 
-	public abstract void decline(String id);
+	public abstract void deny(String id);
 
 	public abstract void confirm(String id);
 

@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 
 import org.company.config.Resources;
-import org.company.controller.SingupRequestHome;
+import org.company.controller.RequestHome;
 import org.company.model.SignupRequest;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -23,13 +23,13 @@ public class SignupRequestHomeTest {
    @Deployment
    public static Archive<?> createTestArchive() {
       return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addClasses(SignupRequest.class, SingupRequestHome.class, Resources.class)
+            .addClasses(SignupRequest.class, RequestHome.class, Resources.class)
        //     .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
    @Inject
-   SingupRequestHome memberRegistration;
+   RequestHome memberRegistration;
 
    @Inject
    Logger log;

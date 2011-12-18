@@ -11,7 +11,7 @@ import org.company.service.SignupRequestService;
 
 @Named("viewAction")
 @RequestScoped
-public class SingupRequestViewAction {
+public class ViewAction {
 
 	@Inject
 	private Logger log;

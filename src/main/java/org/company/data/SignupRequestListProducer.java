@@ -13,6 +13,10 @@ import javax.inject.Named;
 
 import org.company.model.SignupRequest;
 import org.company.service.SignupRequestService;
+import org.company.service.events.Approved;
+import org.company.service.events.Confirmed;
+import org.company.service.events.Denied;
+import org.company.service.events.Registered;
 
 @ApplicationScoped
 public class SignupRequestListProducer {
@@ -51,20 +55,38 @@ public class SignupRequestListProducer {
 		return deniedRequests;
 	}
 
-	public void onSignupRequestListChanged(
-			@Observes(notifyObserver = Reception.IF_EXISTS) final SignupRequest request) {
-		retrieveSignupRequests();
+	public void onRegistered(
+			@Observes(notifyObserver = Reception.IF_EXISTS) @Registered final SignupRequest request) {
+		this.unconfirmedRequests = requestService.getAllUnconfirmedRequests();
+	}
+
+	public void onConfirmed(
+			@Observes(notifyObserver = Reception.IF_EXISTS) @Confirmed final SignupRequest request) {
+		this.unconfirmedRequests = requestService.getAllUnconfirmedRequests();
+		this.confirmedRequests = requestService.getAllConfirmedRequests();
+	}
+
+	public void onApproved(
+			@Observes(notifyObserver = Reception.IF_EXISTS) @Approved final SignupRequest request) {
+		this.confirmedRequests = requestService.getAllConfirmedRequests();
+		this.approvedRequests = requestService.getAllApprovedRequests();
+	}
+
+	public void onDenied(
+			@Observes(notifyObserver = Reception.IF_EXISTS) @Denied final SignupRequest request) {
+		this.confirmedRequests = requestService.getAllConfirmedRequests();
+		this.deniedRequests = requestService.getAllDeniedRequests();
 	}
 
 	@PostConstruct
 	public void retrieveSignupRequests() {
 		this.unconfirmedRequests = requestService.getAllUnconfirmedRequests();
-		log.info("unconfirmedRequests size@"+unconfirmedRequests.size());
+		log.info("unconfirmedRequests size@" + unconfirmedRequests.size());
 		this.confirmedRequests = requestService.getAllConfirmedRequests();
-		log.info("confirmedRequests size@"+confirmedRequests.size());
+		log.info("confirmedRequests size@" + confirmedRequests.size());
 		this.approvedRequests = requestService.getAllApprovedRequests();
-		log.info("approvedRequests size@"+approvedRequests.size());
+		log.info("approvedRequests size@" + approvedRequests.size());
 		this.deniedRequests = requestService.getAllDeniedRequests();
-		log.info("deniedRequests size@"+deniedRequests.size());
+		log.info("deniedRequests size@" + deniedRequests.size());
 	}
 }

@@ -2,6 +2,7 @@ package org.company.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +18,10 @@ import org.company.config.DeniedCache;
 import org.company.config.UnconfirmedCache;
 import org.company.model.SignupRequest;
 import org.company.model.Status;
+import org.company.service.events.Approved;
+import org.company.service.events.Confirmed;
+import org.company.service.events.Denied;
+import org.company.service.events.Registered;
 import org.infinispan.Cache;
 
 @Named
@@ -40,7 +45,20 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	private Cache<String, SignupRequest> deniedCache;
 
 	@Inject
-	Event<SignupRequest> registerationEventSrc;
+	@Registered
+	Event<SignupRequest> registerEventSrc;
+	
+	@Inject
+	@Confirmed
+	private Event<SignupRequest> confirmEventSrc;
+	
+	@Inject
+	@Approved
+	private Event<SignupRequest> approveEventSrc;
+	
+	@Inject
+	@Denied
+	private Event<SignupRequest> denyEventSrc;
 
 	@Override
 	public List<SignupRequest> getAllUnconfirmedRequests() {
@@ -71,8 +89,9 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	public void register(SignupRequest m) {
 		m.setId(UUID.randomUUID().toString());
 		m.setStatus(Status.UNCONFIRMED);
+		m.setCreatedOn(new Date());
 		unconfirmedCache.put(m.getId(), m, 24, TimeUnit.HOURS);
-		registerationEventSrc.fire(m);
+		registerEventSrc.fire(m);
 	}
 
 	@Override
@@ -99,6 +118,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 		unconfirmedCache.remove(id);
 		m.setStatus(Status.CONFIRMED);
 		confirmedCache.put(id, m);
+		confirmEventSrc.fire(m);
 	}
 
 	@Override
@@ -107,14 +127,17 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 		confirmedCache.remove(id);
 		m.setStatus(Status.APPROVED);
 		approvedCache.put(id, m);
+		approveEventSrc.fire(m);
 	}
 
 	@Override
-	public void decline(String id) {
+	public void deny(String id) {
 		SignupRequest m = confirmedCache.get(id);
 		confirmedCache.remove(id);
 		m.setStatus(Status.DENIED);
 		deniedCache.put(id, m);
+		denyEventSrc.fire(m);
+		
 	}
 
 }

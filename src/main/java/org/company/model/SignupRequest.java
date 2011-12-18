@@ -116,7 +116,7 @@ public class SignupRequest implements Serializable {
 	public String toString() {
 		return "SignupRequest{" + "email=" + email + ", companyName="
 				+ companyName + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", status=" + status + '}';
+				+ lastName + ", status=" + status +", createdOn=" + createdOn +'}';
 	}
 
 }

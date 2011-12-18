@@ -13,51 +13,48 @@
 		<h:panelGroup rendered="#{empty confirmedRequests}">
 			<em>No confirmed objs.</em>
 		</h:panelGroup>
-		<h:dataTable var="obj" value="#{confirmedRequests}"
-			rendered="#{not empty confirmedRequests}">
-			<h:column>
-				<f:facet name="header">Id</f:facet>
-                #{obj.id}
-            </h:column>
-			<h:column>
-				<f:facet name="header">Name</f:facet>
+		<ui:fragment rendered="#{not empty confirmedRequests}">
+			<h:form>
+				<h:dataTable var="obj" value="#{confirmedRequests}">
+					<h:column>
+						<f:facet name="header">Name</f:facet>
                 #{obj.name}
             </h:column>
-			<h:column>
-				<f:facet name="header">Email</f:facet>
+					<h:column>
+						<f:facet name="header">Email</f:facet>
                 #{obj.email}
             </h:column>
-			<h:column>
-				<f:facet name="header">Company Nmae</f:facet>
+					<h:column>
+						<f:facet name="header">Company Nmae</f:facet>
                 #{obj.companyName}
             </h:column>
-			<h:column>
-				<f:facet name="header">Http Referer</f:facet>
-                #{obj.httpRefer}
-            </h:column>
-			<h:column>
-				<f:facet name="header">Comment</f:facet>
-                #{obj.comment}
-            </h:column>
-			<h:column>
-				<f:facet name="header">Created On</f:facet>
-				<h:outputText value="#{obj.createdOn}">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Action</f:facet>
-				<a href="#{request.contextPath}/rest/signup/#{obj.id}">REST
-					URL:/rest/signup/#{obj.id}</a>
+					<h:column>
+						<f:facet name="header">Created On</f:facet>
+						<h:outputText value="#{obj.createdOn}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Action</f:facet>
+						<h:panelGroup>
+							<a href="#{request.contextPath}/rest/signup/#{obj.id}">REST
+								View</a>
+						</h:panelGroup>
 				#{' '}
-				<h:link outcome="/objDetail.xhtml" value="View">
-					<f:param name="id" value="#{obj.id}" />
-				</h:link>
-			</h:column>
-			<f:facet name="footer">
-                REST URL for all Unconfirmed Requests: <a
-					href="#{request.contextPath}/rest/signup/confirmed">/rest/signup/confirmed</a>
-			</f:facet>
-		</h:dataTable>
+				<h:link outcome="/requestDetail.xhtml" value="View">
+							<f:param name="id" value="#{obj.id}" />
+						</h:link>
+						<h:commandButton action="#{requestHome.approve(obj.id)}"
+							value="Approve" />
+						<h:commandButton action="#{requestHome.deny(obj.id)}" value="Deny" />
+					</h:column>
+					<f:facet name="footer">
+						<h:panelGroup>  REST URL for all Unconfirmed Requests: <a
+								href="#{request.contextPath}/rest/signup/confirmed">/rest/signup/confirmed</a>
+						</h:panelGroup>
+					</f:facet>
+				</h:dataTable>
+			</h:form>
+		</ui:fragment>
 	</ui:define>
 </ui:composition>

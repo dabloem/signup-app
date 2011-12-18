@@ -49,7 +49,9 @@
 				<th style="text-align: right;"><h:outputText
 						value="Created On " /></th>
 				<td><h:outputText
-						value="#{viewAction.currentRequest.createdOn}" /></td>
+						value="#{viewAction.currentRequest.createdOn}">
+						<f:convertDateTime dateStyle="medium" />
+					</h:outputText></td>
 			</tr>
 			<tr>
 				<th style="text-align: right;"><h:outputText value="Status " /></th>
