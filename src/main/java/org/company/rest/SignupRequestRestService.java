@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -91,18 +92,21 @@ public class SignupRequestRestService {
 		signupRequestService.register(_request);
 	}
 
+	@PUT
 	@Path("/confirm/{id}")
-	public void confirm(String id) {
+	public void confirm(@PathParam("id") String id) {
 		signupRequestService.confirm(id);
 	}
 
+	@PUT
 	@Path("/approve/{id}")
-	public void approve(String id) {
+	public void approve(@PathParam("id") String id) {
 		signupRequestService.approve(id);
 	}
 
+	@PUT
 	@Path("/deny/{id}")
-	public void deny(String id) {
+	public void deny(@PathParam("id") String id) {
 		signupRequestService.decline(id);
 	}
 
