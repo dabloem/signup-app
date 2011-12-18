@@ -3,105 +3,91 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/WEB-INF/templates/default.xhtml">
-	<ui:define name="content">
-		<h1>Registration Demo Page!</h1>
+	template="/WEB-INF/templates/container-app.xhtml"
+	xmlns:bscomp="http://java.sun.com/jsf/composite/bscomp">
 
-		<p>You have successfully deployed a Java EE 6 web application on
-			JBoss AS 7.</p>
+	<ui:define name="header">
+
+	</ui:define>
+
+	<ui:define name="content">
 
 		<h:form id="reg">
-			<table>
-				<tr>
-					<th style="text-align: right;"><h:outputLabel for="firstName"
-							value="First Name:" /></th>
-					<td><h:inputText id="firstName"
-							value="#{registerAction.currentRequest.firstName}" /> <h:message
-							for="firstName" errorClass="invalid" /></td>
-				</tr>
-				<tr>
-					<th style="text-align: right;"><h:outputLabel for="lastName"
-							value="Last Name:" /></th>
-					<td><h:inputText id="lastName"
-							value="#{registerAction.currentRequest.lastName}" /> <h:message
-							for="lastName" errorClass="invalid" /></td>
-				</tr>
-				<tr>
-					<th style="text-align: right;"><h:outputLabel for="email"
-							value="Email:" /></th>
-					<td><h:inputText id="email"
-							value="#{registerAction.currentRequest.email}" /> <h:message
-							for="email" errorClass="invalid" /></td>
-				</tr>
-				<tr>
-					<th style="text-align: right;"><h:outputLabel
-							for="companyName" value="Company Name #:" /></th>
-					<td><h:inputText id="companyName"
-							value="#{registerAction.currentRequest.companyName}" /> <h:message
-							for="companyName" errorClass="invalid" /></td>
-				</tr>
+			<fieldset>
+				<legend>Register</legend>
+				<bscomp:formInputField label="firstname"
+					value="#{registerAction.currentRequest.firstName}" />
+				<bscomp:formInputField label="lastname"
+					value="#{registerAction.currentRequest.lastName}" />
+				<bscomp:formInputField label="email"
+					value="#{registerAction.currentRequest.email}" />
+				<bscomp:formInputField label="ompany name"
+					value="#{registerAction.currentRequest.companyName}" />
+				<bscomp:formInputField label="comment"
+					value="#{registerAction.currentRequest.comment}" />
+				<bscomp:formInputField label="Company Name"
+					value="#{registerAction.currentRequest.companyName}" />
 
-				<tr>
-					<th style="text-align: right;"><h:outputLabel for="comment"
-							value="Comment:" /></th>
-					<td><h:inputTextarea id="comment"
-							value="#{registerAction.currentRequest.comment}"
-							style="width:400px" rows="8" /> <h:message for="comment"
-							errorClass="invalid" /></td>
-				</tr>
-
-			</table>
-			<p>
-				<h:commandButton id="register" action="#{registerAction.register}"
-					value="Register" />
-				<h:outputText value=" Registered!"
-					rendered="#{facesContext.postback and empty facesContext.messageList}"
-					style="color: green;" />
-			</p>
+				<div class="actions">
+					<h:commandButton id="register" styleClass="btn primary"
+						action="#{registerAction.register}" value="Register" />
+					<h:outputText value=" Registered!"
+						rendered="#{facesContext.postback and empty facesContext.messageList}"
+						style="color: green;" />
+				</div>
+			</fieldset>
 		</h:form>
 
 		<p>The following is submit via plain HTML</p>
 
 		<form method="post"
 			action="http://localhost:8080/signup/rest/signup/resgiter">
-			<table>
-				<tr>
-					<th style="text-align: right;"><label for="firstName">First
-							Name:</label></th>
-					<td><input type="text" id="firstName" name="firstName" /></td>
-				</tr>
-				<tr>
-					<th style="text-align: right;"><label for="lastName">Last
-							Name:</label></th>
-					<td><input type="text" id="lastName" name="lastName" /></td>
-				</tr>
-				<tr>
-					<th style="text-align: right;"><label for="email">Email:</label>
-					</th>
-					<td><input type="text" id="email" name="email" /></td>
-				</tr>
-				<tr>
-					<th style="text-align: right;">
+			<fieldset>
+				<div class="clearfix">
+					<label for="firstName">First Name:</label>
+					<div class="input">
+						<input type="text" id="firstName" name="firstName" />
+					</div>
+				</div>
+
+
+				<div class="clearfix">
+					<label for="lastName">Last Name:</label>
+					<div class="input">
+						<input type="text" id="lastName" name="lastName" />
+					</div>
+				</div>
+
+
+				<div class="clearfix">
+					<label for="email">Email:</label>
+
+					<div class="input">
+						<input type="text" id="email" name="email" />
+					</div>
+				</div>
+
+
+				<div class="clearfix">
 					<label for="companyName">Company Name:</label>
-					<td>
-					<input type="text" id="companyName" name="companyName" />
-					</td>
-				</tr>
+					<div class="input">
+						<input type="text" id="companyName" name="companyName" />
+					</div>
+				</div>
 
-				<tr>
-					<th style="text-align: right;"><h:outputLabel for="comment"
-							value="Comment:" />
-							<label for="comment">Comment:</label>
-							</th>
-					<td>
+
+
+				<div class="clearfix">
+					<label for="comment">Comment:</label>
+					<div class="input">
 						<textarea id="comment" name="comment" cols="30" rows="8"></textarea>
-					</td>
-				</tr>
+					</div>
+				</div>
 
-			</table>
-			<p>
-				<input type="submit">Register via Rest POST</input> 
-			</p>
-			</h:form>
+				<div class="actions">
+					<input type="submit" value="Register via Rest API" />
+				</div>
+			</fieldset>
+		</form>
 	</ui:define>
 </ui:composition>
