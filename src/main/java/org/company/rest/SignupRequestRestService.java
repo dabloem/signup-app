@@ -95,32 +95,42 @@ public class SignupRequestRestService {
 				.getFirst(SignupRequest.ATTR_COMPANY_NAME));
 		_request.setEmail(formParams.getFirst(SignupRequest.ATTR_EMAIL));
 		_request.setComment(formParams.getFirst(SignupRequest.ATTR_COMMENT));
+		
+		
 		_request.setHttpRefer(uriInfo.getRequestUri().toASCIIString());
 		signupRequestService.register(_request);
+		
+		return Response.seeOther(redirectUri("/ok.jsf")).build();
+	}
+	
+	
+	private URI redirectUri(String path){
 		URI baseUri=uriInfo.getBaseUri();
 		String host=baseUri.getHost();
 		String schema=baseUri.getScheme();
 		int port=baseUri.getPort();
-		
-		return Response.seeOther(UriBuilder.fromPath(schema+"://"+host+(port==80?"":":"+String.valueOf(port))+servletContext.getContextPath()).path("/ok.jsf").build()).build();
+		return UriBuilder.fromPath(schema+"://"+host+(port==80?"":":"+String.valueOf(port))+servletContext.getContextPath()).path(path).build();
 	}
 
-	@PUT
+	@GET
 	@Path("/confirm/{id}")
-	public void confirm(@PathParam("id") String id) {
+	public Response confirm(@PathParam("id") String id) {
 		signupRequestService.confirm(id);
+		return Response.seeOther(redirectUri("/ok.jsf")).build();
 	}
 
-	@PUT
+	@GET
 	@Path("/approve/{id}")
-	public void approve(@PathParam("id") String id) {
+	public Response approve(@PathParam("id") String id) {
 		signupRequestService.approve(id);
+		return Response.seeOther(redirectUri("/ok.jsf")).build();
 	}
 
-	@PUT
+	@GET
 	@Path("/deny/{id}")
-	public void deny(@PathParam("id") String id) {
+	public Response deny(@PathParam("id") String id) {
 		signupRequestService.deny(id);
+		return Response.seeOther(redirectUri("/ok.jsf")).build();
 	}
 
 }
