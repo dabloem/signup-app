@@ -42,12 +42,7 @@ public class ViewAction {
 
 	public void loadRequest() {
 		log.info("call loadRequest...@" + this.requestId);
-		try {
-			this.currentRequest = requestService.get(this.requestId);
-		} catch (SignupRequestNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.currentRequest = requestService.get(this.requestId);
 	}
 
 }

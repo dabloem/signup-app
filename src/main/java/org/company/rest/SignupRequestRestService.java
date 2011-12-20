@@ -81,12 +81,8 @@ public class SignupRequestRestService {
 	@Path("/{id:[\\w]{32}}")
 	@Produces("text/xml")
 	public Response lookupById(@PathParam("id") String id) {
-		SignupRequest _request=null;
-		try {
-			_request= signupRequestService.get(id);
-		} catch (SignupRequestNotFoundException e) {
-			return translateSignupRequestNotFoundExceptionToResponse(e);
-		}
+		SignupRequest _request = null;
+		_request = signupRequestService.get(id);
 		return Response.ok(_request).build();
 	}
 
@@ -111,33 +107,25 @@ public class SignupRequestRestService {
 	@GET
 	@Path("/confirm/{id:[\\w]{32}}")
 	public Response confirm(@PathParam("id") String id) {
-		try {
-			signupRequestService.confirm(id);
-		} catch (SignupRequestNotFoundException e) {
-			return translateSignupRequestNotFoundExceptionToResponse(e);
-		}
+
+		signupRequestService.confirm(id);
+
 		return Response.seeOther(redirectUri("/ok.jsf")).build();
 	}
 
 	@GET
 	@Path("/approve/{id:[\\w]{32}}")
 	public Response approve(@PathParam("id") String id) {
-		try {
-			signupRequestService.approve(id);
-		} catch (SignupRequestNotFoundException e) {
-			return translateSignupRequestNotFoundExceptionToResponse(e);
-		}
+
+		signupRequestService.approve(id);
+
 		return Response.seeOther(redirectUri("/ok.jsf")).build();
 	}
 
 	@GET
 	@Path("/deny/{id:[\\w]{32}}")
 	public Response deny(@PathParam("id") String id) {
-		try {
-			signupRequestService.deny(id);
-		} catch (SignupRequestNotFoundException e) {
-			return translateSignupRequestNotFoundExceptionToResponse(e);
-		}
+		signupRequestService.deny(id);
 		return Response.seeOther(redirectUri("/ok.jsf")).build();
 	}
 
@@ -156,10 +144,10 @@ public class SignupRequestRestService {
 				.build();
 	}
 
-	private Response translateSignupRequestNotFoundExceptionToResponse(
-			SignupRequestNotFoundException ex) {
-		return Response.status(404).entity(ex.getMessage()).type("text/plain")
-				.build();
-	}
+	// private Response translateSignupRequestNotFoundExceptionToResponse(
+	// SignupRequestNotFoundException ex) {
+	// return Response.status(404).entity(ex.getMessage()).type("text/plain")
+	// .build();
+	// }
 
 }

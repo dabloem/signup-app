@@ -1,6 +1,6 @@
 package org.company.service;
 
-public class SignupRequestNotFoundException extends Exception {
+public class SignupRequestNotFoundException extends RuntimeException {
 
 	/**
 	 * 

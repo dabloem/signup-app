@@ -30,7 +30,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 
 	@Inject
 	@UnconfirmedCache
-	private Cache<String, Object> unconfirmedCache;
+	private Cache<String, SignupRequest> unconfirmedCache;
 
 	@Inject
 	@ConfirmedCache
@@ -62,12 +62,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 
 	@Override
 	public List<SignupRequest> getAllUnconfirmedRequests() {
-		Collection<Object> _values = unconfirmedCache.values();
-		List<SignupRequest> _result = new ArrayList<SignupRequest>();
-		for (Object o : _values) {
-			_result.add((SignupRequest) o);
-		}
-		return _result;
+		return new ArrayList<SignupRequest>(unconfirmedCache.values());
 	}
 
 	@Override
@@ -99,8 +94,8 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
-	public SignupRequest get(String id) throws SignupRequestNotFoundException {
-		SignupRequest _m = (SignupRequest) unconfirmedCache.get(id);
+	public SignupRequest get(String id){
+		SignupRequest _m = unconfirmedCache.get(id);
 		if (_m == null) {
 			_m = confirmedCache.get(id);
 		}
@@ -119,7 +114,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
-	public void confirm(String id) throws SignupRequestNotFoundException {
+	public void confirm(String id){
 		SignupRequest m = (SignupRequest) unconfirmedCache.get(id);
 		Predicate.nonNull(m);
 
@@ -130,7 +125,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
-	public void approve(String id) throws SignupRequestNotFoundException {
+	public void approve(String id){
 		SignupRequest m = confirmedCache.get(id);
 		Predicate.nonNull(m);
 
@@ -141,7 +136,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
-	public void deny(String id) throws SignupRequestNotFoundException {
+	public void deny(String id){
 		SignupRequest m = confirmedCache.get(id);
 
 		Predicate.nonNull(m);

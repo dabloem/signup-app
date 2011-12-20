@@ -6,7 +6,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.company.service.SignupRequestNotFoundException;
 import org.company.service.SignupRequestService;
 
 @Named("requestHome")
@@ -18,32 +17,20 @@ public class RequestHome {
 
 	@Inject
 	private SignupRequestService requestService;
-	
+
 	public void confirm(String id) {
-		log.info("confirm....@"+id);
-		try {
-			requestService.confirm(id);
-		} catch (SignupRequestNotFoundException e) {
-			e.printStackTrace();
-		}
+		log.info("confirm....@" + id);
+		requestService.confirm(id);
 	}
 
 	public void approve(String id) {
-		log.info("approve....@"+id);
-		try {
-			requestService.approve(id);
-		} catch (SignupRequestNotFoundException e) {
-			e.printStackTrace();
-		}
+		log.info("approve....@" + id);
+		requestService.approve(id);
 	}
 
 	public void deny(String id) {
-		log.info("deny....@"+id);
-		try {
-			requestService.deny(id);
-		} catch (SignupRequestNotFoundException e) {			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		log.info("deny....@" + id);
+		requestService.deny(id);
 	}
 
 }
