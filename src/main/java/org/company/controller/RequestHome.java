@@ -3,13 +3,11 @@ package org.company.controller;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.company.model.SignupRequest;
+import org.company.service.SignupRequestNotFoundException;
 import org.company.service.SignupRequestService;
-import org.company.service.events.Confirmed;
 
 @Named("requestHome")
 @RequestScoped
@@ -23,17 +21,29 @@ public class RequestHome {
 	
 	public void confirm(String id) {
 		log.info("confirm....@"+id);
-		requestService.confirm(id);
+		try {
+			requestService.confirm(id);
+		} catch (SignupRequestNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void approve(String id) {
 		log.info("approve....@"+id);
-		requestService.approve(id);
+		try {
+			requestService.approve(id);
+		} catch (SignupRequestNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void deny(String id) {
 		log.info("deny....@"+id);
-		requestService.deny(id);
+		try {
+			requestService.deny(id);
+		} catch (SignupRequestNotFoundException e) {			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

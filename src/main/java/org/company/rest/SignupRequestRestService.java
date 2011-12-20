@@ -9,7 +9,6 @@ import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -20,6 +19,7 @@ import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import org.company.model.SignupRequest;
+import org.company.service.SignupRequestNotFoundException;
 import org.company.service.SignupRequestService;
 
 /**
@@ -78,10 +78,16 @@ public class SignupRequestRestService {
 	}
 
 	@GET
-	@Path("/{id}")
+	@Path("/{id:[\\w]{32}}")
 	@Produces("text/xml")
-	public SignupRequest lookupById(@PathParam("id") String id) {
-		return signupRequestService.get(id);
+	public Response lookupById(@PathParam("id") String id) {
+		SignupRequest _request=null;
+		try {
+			_request= signupRequestService.get(id);
+		} catch (SignupRequestNotFoundException e) {
+			return translateSignupRequestNotFoundExceptionToResponse(e);
+		}
+		return Response.ok(_request).build();
 	}
 
 	@POST
@@ -95,42 +101,65 @@ public class SignupRequestRestService {
 				.getFirst(SignupRequest.ATTR_COMPANY_NAME));
 		_request.setEmail(formParams.getFirst(SignupRequest.ATTR_EMAIL));
 		_request.setComment(formParams.getFirst(SignupRequest.ATTR_COMMENT));
-		
-		
+
 		_request.setHttpRefer(uriInfo.getRequestUri().toASCIIString());
 		signupRequestService.register(_request);
-		
+
 		return Response.seeOther(redirectUri("/ok.jsf")).build();
-	}
-	
-	
-	private URI redirectUri(String path){
-		URI baseUri=uriInfo.getBaseUri();
-		String host=baseUri.getHost();
-		String schema=baseUri.getScheme();
-		int port=baseUri.getPort();
-		return UriBuilder.fromPath(schema+"://"+host+(port==80?"":":"+String.valueOf(port))+servletContext.getContextPath()).path(path).build();
 	}
 
 	@GET
-	@Path("/confirm/{id}")
+	@Path("/confirm/{id:[\\w]{32}}")
 	public Response confirm(@PathParam("id") String id) {
-		signupRequestService.confirm(id);
+		try {
+			signupRequestService.confirm(id);
+		} catch (SignupRequestNotFoundException e) {
+			return translateSignupRequestNotFoundExceptionToResponse(e);
+		}
 		return Response.seeOther(redirectUri("/ok.jsf")).build();
 	}
 
 	@GET
-	@Path("/approve/{id}")
+	@Path("/approve/{id:[\\w]{32}}")
 	public Response approve(@PathParam("id") String id) {
-		signupRequestService.approve(id);
+		try {
+			signupRequestService.approve(id);
+		} catch (SignupRequestNotFoundException e) {
+			return translateSignupRequestNotFoundExceptionToResponse(e);
+		}
 		return Response.seeOther(redirectUri("/ok.jsf")).build();
 	}
 
 	@GET
-	@Path("/deny/{id}")
+	@Path("/deny/{id:[\\w]{32}}")
 	public Response deny(@PathParam("id") String id) {
-		signupRequestService.deny(id);
+		try {
+			signupRequestService.deny(id);
+		} catch (SignupRequestNotFoundException e) {
+			return translateSignupRequestNotFoundExceptionToResponse(e);
+		}
 		return Response.seeOther(redirectUri("/ok.jsf")).build();
+	}
+
+	private URI redirectUri(String path) {
+		URI baseUri = uriInfo.getBaseUri();
+		String host = baseUri.getHost();
+		String schema = baseUri.getScheme();
+		int port = baseUri.getPort();
+		return UriBuilder
+				.fromPath(
+						schema
+								+ "://"
+								+ host
+								+ (port == 80 ? "" : ":" + String.valueOf(port))
+								+ servletContext.getContextPath()).path(path)
+				.build();
+	}
+
+	private Response translateSignupRequestNotFoundExceptionToResponse(
+			SignupRequestNotFoundException ex) {
+		return Response.status(404).entity(ex.getMessage()).type("text/plain")
+				.build();
 	}
 
 }

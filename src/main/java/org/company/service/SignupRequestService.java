@@ -15,12 +15,12 @@ public interface SignupRequestService {
 
 	public abstract void register(SignupRequest m);
 
-	public abstract SignupRequest get(String id);
+	public abstract SignupRequest get(String id) throws SignupRequestNotFoundException;
 
-	public abstract void approve(String id);
+	public abstract void approve(String id) throws SignupRequestNotFoundException;
 
-	public abstract void deny(String id);
+	public abstract void deny(String id) throws SignupRequestNotFoundException;
 
-	public abstract void confirm(String id);
+	public abstract void confirm(String id) throws SignupRequestNotFoundException;
 
 }

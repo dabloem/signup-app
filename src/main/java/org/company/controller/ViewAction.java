@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.company.model.SignupRequest;
+import org.company.service.SignupRequestNotFoundException;
 import org.company.service.SignupRequestService;
 
 @Named("viewAction")
@@ -41,7 +42,12 @@ public class ViewAction {
 
 	public void loadRequest() {
 		log.info("call loadRequest...@" + this.requestId);
-		this.currentRequest = requestService.get(this.requestId);
+		try {
+			this.currentRequest = requestService.get(this.requestId);
+		} catch (SignupRequestNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

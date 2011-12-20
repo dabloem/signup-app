@@ -47,15 +47,15 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	@Inject
 	@Registered
 	Event<SignupRequest> registerEventSrc;
-	
+
 	@Inject
 	@Confirmed
 	private Event<SignupRequest> confirmEventSrc;
-	
+
 	@Inject
 	@Approved
 	private Event<SignupRequest> approveEventSrc;
-	
+
 	@Inject
 	@Denied
 	private Event<SignupRequest> denyEventSrc;
@@ -87,7 +87,11 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 
 	@Override
 	public void register(SignupRequest m) {
-		m.setId(UUID.randomUUID().toString());
+		String uuid = UUID.randomUUID().toString();
+		//remove the char '-'
+		uuid = uuid.replace("-", "");
+				
+		m.setId(uuid);
 		m.setStatus(Status.UNCONFIRMED);
 		m.setCreatedOn(new Date());
 		unconfirmedCache.put(m.getId(), m, 24, TimeUnit.HOURS);
@@ -95,7 +99,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
-	public SignupRequest get(String id) {
+	public SignupRequest get(String id) throws SignupRequestNotFoundException {
 		SignupRequest _m = (SignupRequest) unconfirmedCache.get(id);
 		if (_m == null) {
 			_m = confirmedCache.get(id);
@@ -109,12 +113,16 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 			_m = deniedCache.get(id);
 		}
 
+		Predicate.nonNull(_m);
+
 		return _m;
 	}
 
 	@Override
-	public void confirm(String id) {
+	public void confirm(String id) throws SignupRequestNotFoundException {
 		SignupRequest m = (SignupRequest) unconfirmedCache.get(id);
+		Predicate.nonNull(m);
+
 		unconfirmedCache.remove(id);
 		m.setStatus(Status.CONFIRMED);
 		confirmedCache.put(id, m);
@@ -122,8 +130,10 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
-	public void approve(String id) {
+	public void approve(String id) throws SignupRequestNotFoundException {
 		SignupRequest m = confirmedCache.get(id);
+		Predicate.nonNull(m);
+
 		confirmedCache.remove(id);
 		m.setStatus(Status.APPROVED);
 		approvedCache.put(id, m);
@@ -131,13 +141,16 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
-	public void deny(String id) {
+	public void deny(String id) throws SignupRequestNotFoundException {
 		SignupRequest m = confirmedCache.get(id);
+
+		Predicate.nonNull(m);
+
 		confirmedCache.remove(id);
 		m.setStatus(Status.DENIED);
 		deniedCache.put(id, m);
 		denyEventSrc.fire(m);
-		
+
 	}
 
 }
