@@ -2,24 +2,12 @@ package org.company.rest;
 
 import java.net.URI;
 import java.util.List;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
-
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
 import org.company.model.SignupRequest;
-import org.company.service.SignupRequestNotFoundException;
 import org.company.service.SignupRequestService;
 
 /**
@@ -89,7 +77,7 @@ public class SignupRequestRestService {
 	@POST
 	@Path("/register")
 	@Consumes("application/x-www-form-urlencoded")
-	public Response register(MultivaluedMap<String, String> formParams) {
+	public Response register(MultivaluedMap<String, String> formParams, @HeaderParam("Referer") String referer) {
 		SignupRequest _request = new SignupRequest();
 		_request.setFirstName(formParams.getFirst(SignupRequest.ATTR_FIRSTNAME));
 		_request.setLastName(formParams.getFirst(SignupRequest.ATTR_LASTNAME));
@@ -98,7 +86,7 @@ public class SignupRequestRestService {
 		_request.setEmail(formParams.getFirst(SignupRequest.ATTR_EMAIL));
 		_request.setComment(formParams.getFirst(SignupRequest.ATTR_COMMENT));
 
-		_request.setHttpRefer(uriInfo.getRequestUri().toASCIIString());
+		_request.setHttpRefer(referer);
 		signupRequestService.register(_request);
 
 		return Response.seeOther(redirectUri("/ok.jsf")).build();
