@@ -1,33 +1,56 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="/WEB-INF/templates/container-app.xhtml"
-                xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+	template="/WEB-INF/templates/container-app.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
 
-    <ui:define name="topbar">
-        <ui:decorate template="/WEB-INF/templates/topbar.xhtml">
-            <a class="brand" href="#"><h:graphicImage name="logo.png" library="images"/></a>
-        </ui:decorate>
+	<ui:define name="topbar">
+		<ui:decorate template="/WEB-INF/templates/topbar.xhtml">
+			<a class="brand" href="#"><h:graphicImage name="logo.png"
+					library="images" /></a>
+		</ui:decorate>
+	</ui:define>
+
+	<ui:define name="header">
+       <h1>  Login</h1> 
     </ui:define>
 
-    <ui:define name="header">
-        header
+	<ui:define name="submenu">
+        
     </ui:define>
 
-    <ui:define name="submenu">
-        submenu
+	<ui:define name="content">
+		<form method="post" action="#{request.contextPath}/j_security_check">
+			<fieldset>
+				<div class="clearfix">
+					<ui:fragment rendered="#{params.error ne null}">
+						<h:panelGroup class="invalid">Invalid username or password, please try again.</h:panelGroup>
+					</ui:fragment>
+				</div>
+				<div class="clearfix">
+					<label for="j_username">Username:</label>
+					<div class="input">
+						<input type="text" id="j_username" name="j_username" />
+					</div>
+				</div>
+				<div class="clearfix">
+					<label for="j_password">Last Name:</label>
+					<div class="input">
+						<input type="password" id="j_password" name="j_password" />
+					</div>
+				</div>
+
+				<div class="actions">
+					<input type="submit" value="Login" class="btn primary" />
+				</div>
+			</fieldset>
+		</form>
+	</ui:define>
+
+	<ui:define name="sidebar">
+        
     </ui:define>
 
-    <ui:define name="content">
-        content
-    </ui:define>
-
-    <ui:define name="sidebar">
-        sidebar
-    </ui:define>
-
-    <ui:define name="footer">
-        footer
-    </ui:define>
 
 </ui:composition>

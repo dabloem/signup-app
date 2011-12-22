@@ -16,9 +16,7 @@
     <context-param>
         <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
         <param-value>true</param-value>
-    </context-param>
-
-     
+    </context-param>  
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -37,4 +35,31 @@
     	<extension>ico</extension>
     	<mime-type>image/x-icon</mime-type>
     </mime-mapping>
+    
+
+    <security-constraint>
+        <display-name>Administration Console</display-name>
+        <web-resource-collection>
+            <web-resource-name>Protected Resource</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ROLE_ADMINISTRATOR</role-name>
+            <role-name>ROLE_VIEWER</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>SignupRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.jsf</form-login-page>
+            <form-error-page>/login.jsf?error=1</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <role-name>ROLE_ADMINISTRATOR</role-name>
+    </security-role>
+    <security-role>
+        <role-name>ROLE_VIEWER</role-name>
+    </security-role>
 </web-app>

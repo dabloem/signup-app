@@ -4,8 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/default.xhtml">
+		<ui:define name="header">
+      <h1> Confirmed Signup Requests</h1> 
+    </ui:define>
 	<ui:define name="content">
-		<h1>Confirmed Signup Requests</h1>
+		
 
 		<p>
 			<h:messages globalOnly="true" errorClass="errorClass" />
@@ -41,12 +44,16 @@
 								View</a>
 						</h:panelGroup>
 				#{' '}
-				<h:link outcome="/requestDetail.xhtml" value="View">
+				<h:link outcome="/admin/requestDetail.xhtml" value="View">
 							<f:param name="id" value="#{obj.id}" />
 						</h:link>
-						<h:commandButton action="#{requestHome.approve(obj.id)}"
-							value="Approve" />
-						<h:commandButton action="#{requestHome.deny(obj.id)}" value="Deny" />
+						<ui:fragment
+							rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMINISTRATOR')}">
+							<h:commandButton action="#{requestHome.approve(obj.id)}"
+								value="Approve" />
+							<h:commandButton action="#{requestHome.deny(obj.id)}"
+								value="Deny" />
+						</ui:fragment>
 					</h:column>
 					<f:facet name="footer">
 						<h:panelGroup>  REST URL for all Unconfirmed Requests: <a
