@@ -4,6 +4,9 @@ import javax.annotation.Resources;
 import javax.inject.Inject;
 
 import org.company.model.SignupRequest;
+import org.company.service.InfinispanSignupRequestService;
+import org.company.service.Predicate;
+import org.company.service.SignupRequestNotFoundException;
 import org.company.service.SignupRequestService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -20,7 +23,7 @@ public class SignupRequestServiceTest {
 	@Deployment
 	public static JavaArchive createDeployment() {
 		return ShrinkWrap.create(JavaArchive.class)
-				.addPackage(SignupRequestService.class.getPackage())
+				.addClasses(SignupRequestService.class,InfinispanSignupRequestService.class,Predicate.class, SignupRequestNotFoundException.class)
 				.addPackage(SignupRequest.class.getPackage())
 				.addPackage(Resources.class.getPackage())
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");

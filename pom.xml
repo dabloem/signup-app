@@ -24,6 +24,7 @@
 		<!-- Specify the JBoss AS directory to be the JBOSS_HOME environment variable -->
 		<jboss.home>${env.JBOSS_HOME}</jboss.home>
 		<infinispan.version>5.1.0.BETA3</infinispan.version>
+		<version.arquillian_core>1.0.0.CR6</version.arquillian_core>
 	</properties>
 
 	<dependencyManagement>
@@ -46,6 +47,14 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>${version.arquillian_core}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -79,6 +88,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- Import the Common Annotations API (JSR-250), we use provided scope 
 			as the API is included in JBoss AS 7 -->
 		<dependency>
@@ -94,6 +109,8 @@
 			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+
 
 		<!-- Import the JPA API, we use provided scope as the API is included in 
 			JBoss AS 7 -->
@@ -144,6 +161,29 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- AWS SDK -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.2.14</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.3</version>
+		</dependency>
+
 		<!-- Needed for running tests (you may also use TestNG) -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -158,7 +198,6 @@
 		<dependency>
 			<groupId>org.jboss.arquillian.junit</groupId>
 			<artifactId>arquillian-junit-container</artifactId>
-			<version>1.0.0.CR6</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -170,14 +209,9 @@
 		<dependency>
 			<groupId>org.jboss.shrinkwrap.descriptors</groupId>
 			<artifactId>shrinkwrap-descriptors-impl</artifactId>
-			<version>1.1.0-beta-1</version>
 			<scope>test</scope>
 		</dependency>
-	 <dependency>
-	  <groupId>com.amazonaws</groupId>
-	  <artifactId>aws-java-sdk</artifactId>
-	  <version>1.2.14</version>
-	 </dependency>
+
 	</dependencies>
 
 	<build>
@@ -302,6 +336,13 @@
 					<artifactId>jboss-as-arquillian-container-remote</artifactId>
 					<version>7.0.2.Final</version>
 					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.spec</groupId>
+					<artifactId>jboss-javaee-web-6.0</artifactId>
+					<version>2.0.0.Final</version>
+					<type>pom</type>
+					<scope>provided</scope>
 				</dependency>
 			</dependencies>
 		</profile>
