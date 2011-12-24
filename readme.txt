@@ -17,7 +17,7 @@ Configuration for JAAS security.
 1. Configuration using UsersRoles login-module code.
 
 	1.1 Create a security domain in JBoss configuration file(${JBOSS_HOME}/standlone/configuration/standalone.xml).
-		Find <subsystem xmlns="urn:jboss:domain:security:1.0"> tag, add the following configuration.
+		Find <subsystem xmlns="urn:jboss:domain:security:1.0"> tag, change 'other' security-domain to the following configuration.
 	 	
 	 	 		<security-domains>
 	                <security-domain name="other">
@@ -30,7 +30,7 @@ Configuration for JAAS security.
 	 				</security-domain>
 				</security-domains>
 		
-		Create users.properties and roles.properties in the project src/main/resources, when the project is package, they are included in the classpath.
+		Create users.properties and roles.properties in the project src/main/resources, when the project is packaged, they will be included in the classpath.
 		
 	1.2 Specify the security domain in jboss-web.xml.
 	
