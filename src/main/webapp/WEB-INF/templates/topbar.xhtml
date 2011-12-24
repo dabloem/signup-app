@@ -1,10 +1,31 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
-    <div class="topbar">
-        <div class="fill">
-            <div class="container">
-                <ui:insert />
-            </div>
-        </div>
-    </div>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<div class="topbar">
+		<div class="fill">
+			<div class="container">
+				<h:form>
+					<div class="nav">
+						<ul>
+							<li><h:link outcome="/admin/unconfirmed.xhtml"
+									value="Unconfirmed" /></li>
+							<li><h:link outcome="/admin/confirmed.xhtml"
+									value="Confirmed" /></li>
+							<li><h:link outcome="/admin/approved.xhtml" value="Approved" /></li>
+							<li><h:link outcome="/admin/denied.xhtml" value="Denied" /></li>
+							<li><h:link outcome="/register.xhtml" value="Register" /></li>
+						</ul>
+					</div>
+					<div class="pull-right">
+						<ui:fragment
+							rendered="#{facesContext.externalContext.remoteUser ne null}">
+							<h:commandButton styleClass="bnt primary"
+								action="#{requestHome.logout()}" value="Logout" />
+						</ui:fragment>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</div>
 </ui:composition>

@@ -48,7 +48,7 @@
 						<ui:fragment
 							rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMINISTRATOR')}">
 							<h:commandButton action="#{requestHome.confirm(obj.id)}"
-								value="Confirm" />
+								value="Confirm" styleClass="btn" />
 						</ui:fragment>
 					</h:column>
 					<f:facet name="footer">

@@ -3,7 +3,12 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/WEB-INF/templates/container-app.xhtml">
+
+	<ui:define name="topbar">
+		<ui:include src="/WEB-INF/templates/topbar.xhtml" />
+	</ui:define>
+
 	<ui:define name="sidebar">
-		<ui:include src="/WEB-INF/templates/sidebar.xhtml" />
+		<!-- ui:include src="/WEB-INF/templates/sidebar.xhtml" /-->
 	</ui:define>
 </ui:composition>
