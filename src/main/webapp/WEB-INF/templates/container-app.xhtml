@@ -16,7 +16,16 @@
 
 	<h:body>
 
-		<ui:insert name="topbar" />
+		<ui:insert name="topbar">
+			<div class="topbar">
+				<div class="fill">
+					<div class="container">
+						<a class="brand" href="#"><h:graphicImage name="logo.png"
+								library="images" /></a>
+					</div>
+				</div>
+			</div>
+		</ui:insert>
 
 		<div class="container">
 
@@ -31,7 +40,13 @@
 						</ui:insert>
 					</div>
 				</div>
-
+				<ui:fragment rendered="#{not empty facesContext.messageList}">
+					<div class="row">
+						<h:messages layout="vertical" globalOnly="true" showSummary="true"
+							showDetail="false" errorClass="alert-message error"
+							infoClass="alert-message info" warnClass="alert-message danger" />
+					</div>
+				</ui:fragment>
 				<div class="row">
 					<div class="span12">
 						<ui:insert name="submenu" />

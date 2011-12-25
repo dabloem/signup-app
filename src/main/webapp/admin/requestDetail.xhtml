@@ -11,54 +11,83 @@
 		</f:metadata>
 	</ui:define>
 	<ui:define name="header">
-     <h1>   Signup Request Detail</h1> 
-    </ui:define>
+		<h1>Signup Request Detail</h1>
+	</ui:define>
 	<ui:define name="content">
+		<form>
+			<div class="clearfix">
+				<div class="span3">
+					<h:outputText style="float:right;font-weight:bold;" value="Id" />
+				</div>
+				<div class="span6">
+					<h:outputText value="#{viewAction.currentRequest.id}" />
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="span3">
+					<h:outputText style="float:right;font-weight:bold;" value="Name" />
+				</div>
+				<div class="span6">
+					<h:outputText value="#{viewAction.currentRequest.name}" />
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="span3">
+					<h:outputText style="float:right;font-weight:bold;" value=" Email " />
+				</div>
+				<div class="span6">
+					<h:outputText value="#{viewAction.currentRequest.email}" />
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="span3">
+					<h:outputText style="float:right;font-weight:bold;"
+						value="Company Name" />
+				</div>
+				<div class="span6">
+					<h:outputText value="#{viewAction.currentRequest.companyName}" />
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="span3">
+					<h:outputText style="float:right;font-weight:bold;"
+						value="Http Referer" />
+				</div>
+				<div class="span6">
+					<h:outputText value="#{viewAction.currentRequest.httpRefer}" />
+				</div>
+			</div>
 
-		<table>
-			<tr>
-				<th style="text-align: right;"><h:outputText value="Id" /></th>
-				<td><h:outputText value="#{viewAction.currentRequest.id}" /></td>
-			</tr>
-			<tr>
-				<th style="text-align: right;"><h:outputText value="Name" /></th>
-				<td><h:outputText value="#{viewAction.currentRequest.name}" />
-				</td>
-			</tr>
-			<tr>
-				<th style="text-align: right;"><h:outputText value=" Email " /></th>
-				<td><h:outputText value="#{viewAction.currentRequest.email}" />
-				</td>
-			</tr>
-			<tr>
-				<th style="text-align: right;"><h:outputText
-						value="Company Name" /></th>
-				<td><h:outputText
-						value="#{viewAction.currentRequest.companyName}" /></td>
-			</tr>
-			<tr>
-				<th style="text-align: right;"><h:outputText
-						value="Http Referer" /></th>
-				<td><h:outputText
-						value="#{viewAction.currentRequest.httpRefer}" /></td>
-			</tr>
-			<tr>
-				<th style="text-align: right;"><h:outputText value="Comment" /></th>
-				<td><h:outputText value="#{viewAction.currentRequest.comment}" /></td>
-			</tr>
-			<tr>
-				<th style="text-align: right;"><h:outputText
-						value="Created On " /></th>
-				<td><h:outputText
-						value="#{viewAction.currentRequest.createdOn}">
+			<div class="clearfix">
+				<div class="span3">
+					<h:outputText style="float:right;font-weight:bold;"
+						value="Created On " />
+				</div>
+				<div class="span6">
+					<h:outputText value="#{viewAction.currentRequest.createdOn}">
 						<f:convertDateTime dateStyle="medium" />
-					</h:outputText></td>
-			</tr>
-			<tr>
-				<th style="text-align: right;"><h:outputText value="Status " /></th>
-				<td><h:outputText value="#{viewAction.currentRequest.status}" />
-				</td>
-			</tr>
-		</table>
+					</h:outputText>
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="span3">
+					<h:outputText style="float:right;font-weight:bold;" value="Status " />
+				</div>
+				<div class="span6">
+					<h:outputText value="#{viewAction.currentRequest.status}" />
+				</div>
+			</div>
+			<ui:fragment rendered="#{viewAction.currentRequest.comment ne null}">
+				<div class="clearfix">
+					<div class="span3">
+						<h:outputText style="float:right;font-weight:bold;"
+							value="Comment" />
+					</div>
+					<div class="span6">
+						<h:outputText value="#{viewAction.currentRequest.comment}" />
+					</div>
+				</div>
+			</ui:fragment>
+		</form>
 	</ui:define>
 </ui:composition>

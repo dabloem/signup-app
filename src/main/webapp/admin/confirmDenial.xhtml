@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="id" value="#{denyAction.requestId}" />
+			<f:event listener="#{denyAction.loadRequest}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="header">
+		<h1>Confirm Denial</h1>
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<fieldset>
+				<div class="clearfix">
+					<div class="span3">
+						<h:outputText style="float:right;font-weight:bold;" value="Id" />
+					</div>
+					<div class="span6">
+						<h:outputText value="#{denyAction.currentRequest.id}" />
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="span3">
+						<h:outputText style="float:right;font-weight:bold;" value="Name" />
+					</div>
+					<div class="span6">
+						<h:outputText value="#{denyAction.currentRequest.name}" />
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="span3">
+						<h:outputText style="float:right;font-weight:bold;"
+							value=" Email " />
+					</div>
+					<div class="span6">
+						<h:outputText value="#{denyAction.currentRequest.email}" />
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="span3">
+						<h:outputText style="float:right;font-weight:bold;"
+							value="Company Name" />
+					</div>
+					<div class="span6">
+						<h:outputText value="#{denyAction.currentRequest.companyName}" />
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="span3">
+						<h:outputText style="float:right;font-weight:bold;"
+							value="Http Referer" />
+					</div>
+					<div class="span6">
+						<h:outputText value="#{denyAction.currentRequest.httpRefer}" />
+					</div>
+				</div>
+
+				<div class="clearfix">
+					<div class="span3">
+						<h:outputText style="float:right;font-weight:bold;"
+							value="Created On " />
+					</div>
+					<div class="span6">
+						<h:outputText value="#{denyAction.currentRequest.createdOn}">
+							<f:convertDateTime dateStyle="medium" />
+						</h:outputText>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="span3">
+						<h:outputText style="float:right;font-weight:bold;"
+							value="Status " />
+					</div>
+					<div class="span6">
+						<h:outputText value="#{denyAction.currentRequest.status}" />
+					</div>
+				</div>
+
+				<div class="clearfix">
+					<div class="span3">
+						<h:outputText style="float:right;font-weight:bold;"
+							value="Comment" />
+					</div>
+					<div class="span6">
+						<h:inputTextarea value="#{denyAction.currentRequest.comment}"
+							rows="6" />
+					</div>
+				</div>
+				<div class="actions">
+					<h:commandButton id="deny" styleClass="btn danger"
+						action="#{denyAction.deny}" value="Deny" />#{' '}
+					<h:commandButton id="cancel" styleClass="btn"
+						action="#{denyAction.cancel}" value="Cancel" />
+				</div>
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

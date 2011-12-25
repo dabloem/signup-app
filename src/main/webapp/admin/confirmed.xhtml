@@ -4,21 +4,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/default.xhtml">
-		<ui:define name="header">
-      <h1> Confirmed Signup Requests</h1> 
-    </ui:define>
+	<ui:define name="header">
+		<h1>Confirmed Signup Requests</h1>
+	</ui:define>
 	<ui:define name="content">
-		
 
-		<p>
-			<h:messages globalOnly="true" errorClass="errorClass" />
-		</p>
 		<h:panelGroup rendered="#{empty confirmedRequests}">
 			<em>No confirmed objs.</em>
 		</h:panelGroup>
 		<ui:fragment rendered="#{not empty confirmedRequests}">
 			<h:form>
-				<h:dataTable var="obj" value="#{confirmedRequests}">
+				<h:dataTable var="obj" value="#{confirmedRequests}"
+					styleClass="zebra-striped">
 					<h:column>
 						<f:facet name="header">Name</f:facet>
                 #{obj.name}
@@ -39,27 +36,21 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">Action</f:facet>
-						<h:panelGroup>
-							<a href="#{request.contextPath}/rest/signup/#{obj.id}">REST
-								View</a>
-						</h:panelGroup>
-				#{' '}
-				<h:link outcome="/admin/requestDetail.xhtml" value="View">
+						<h:link outcome="/admin/requestDetail.xhtml" styleClass="btn"
+							value="View">
 							<f:param name="id" value="#{obj.id}" />
-						</h:link>
+						</h:link>#{' '}
 						<ui:fragment
 							rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMINISTRATOR')}">
 							<h:commandButton action="#{requestHome.approve(obj.id)}"
-								value="Approve" />
-							<h:commandButton action="#{requestHome.deny(obj.id)}"
-								value="Deny" />
+								value="Approve" styleClass="btn primary" />#{' '}
+							<h:link outcome="/admin/confirmDenial.xhtml" styleClass="btn"
+								value="Deny">
+								<f:param name="id" value="#{obj.id}" />
+							</h:link>
 						</ui:fragment>
 					</h:column>
-					<f:facet name="footer">
-						<h:panelGroup>  REST URL for all Unconfirmed Requests: <a
-								href="#{request.contextPath}/rest/signup/confirmed">/rest/signup/confirmed</a>
-						</h:panelGroup>
-					</f:facet>
+
 				</h:dataTable>
 			</h:form>
 		</ui:fragment>

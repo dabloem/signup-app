@@ -3,11 +3,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/WEB-INF/templates/container-app.xhtml"
+	template="/WEB-INF/templates/default.xhtml"
 	xmlns:bscomp="http://java.sun.com/jsf/composite/bscomp">
 
 	<ui:define name="header">
-
+		<h1>Register</h1>
 	</ui:define>
 
 	<ui:define name="content">
@@ -25,7 +25,7 @@
 					value="#{registerAction.currentRequest.companyName}" />
 				<bscomp:formInputField label="comment"
 					value="#{registerAction.currentRequest.comment}" />
-				
+
 				<div class="actions">
 					<h:commandButton id="register" styleClass="btn primary"
 						action="#{registerAction.register}" value="Register" />
@@ -36,11 +36,10 @@
 			</fieldset>
 		</h:form>
 
-		<p>The following is submit via plain HTML</p>
-
 		<form method="post"
 			action="#{request.contextPath}/rest/signup/register">
 			<fieldset>
+				<legend>Register via REST API</legend>
 				<div class="clearfix">
 					<label for="firstName">First Name:</label>
 					<div class="input">
@@ -83,7 +82,8 @@
 				</div>
 
 				<div class="actions">
-					<input type="submit" value="Register via Rest API" class="btn primary" />
+					<input type="submit" value="Register via Rest API"
+						class="btn primary" />
 				</div>
 			</fieldset>
 		</form>

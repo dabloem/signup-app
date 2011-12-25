@@ -5,18 +5,16 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="header">
-			<h1> Unconfirmed Signup Requests</h1> 
-    </ui:define>
+		<h1>Unconfirmed Signup Requests</h1>
+	</ui:define>
 	<ui:define name="content">
-		<p>
-			<h:messages globalOnly="true" errorClass="errorClass" />
-		</p>
 		<h:panelGroup rendered="#{empty unconfirmedRequests}">
 			<em>No unconfirmed requests.</em>
 		</h:panelGroup>
 		<ui:fragment rendered="#{not empty unconfirmedRequests}">
 			<h:form>
-				<h:dataTable var="obj" value="#{unconfirmedRequests}" styleClass="zebra-striped">
+				<h:dataTable var="obj" value="#{unconfirmedRequests}"
+					styleClass="zebra-striped">
 					<h:column>
 						<f:facet name="header">Name</f:facet>
                 #{obj.name}
@@ -37,25 +35,25 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">Action</f:facet>
-						<h:panelGroup>
+						<!-- <h:panelGroup>
 							<a href="#{request.contextPath}/rest/signup/#{obj.id}"> Rest
 								View</a>
-						</h:panelGroup>
-				#{' '}
-					<h:link outcome="/admin/requestDetail" value="View">
+						</h:panelGroup> -->
+						<h:link outcome="/admin/requestDetail" value="View"
+							styleClass="btn">
 							<f:param name="id" value="#{obj.id}" />
-						</h:link>
+						</h:link>#{' '}
 						<ui:fragment
 							rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMINISTRATOR')}">
 							<h:commandButton action="#{requestHome.confirm(obj.id)}"
-								value="Confirm" styleClass="btn" />
+								value="Confirm" styleClass="btn primary" />
 						</ui:fragment>
 					</h:column>
-					<f:facet name="footer">
+					<!--f:facet name="footer">
 						<h:panelGroup>   REST URL for all Unconfirmed Requests: <a
 								href="#{request.contextPath}/rest/signup/unconfirmed">/rest/signup/unconfirmed</a>
 						</h:panelGroup>
-					</f:facet>
+					</f:facet-->
 				</h:dataTable>
 			</h:form>
 		</ui:fragment>

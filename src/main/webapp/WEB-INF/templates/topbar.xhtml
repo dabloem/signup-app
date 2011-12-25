@@ -5,26 +5,45 @@
 	<div class="topbar">
 		<div class="fill">
 			<div class="container">
-				<h:form>
+				<a class="brand" href="#{request.contextPath}/index.jsf"><h:graphicImage
+						name="logo.png" library="images" /></a>
+				<ui:fragment
+					rendered="#{facesContext.externalContext.remoteUser ne null}">
 					<div class="nav">
 						<ul>
-							<li><h:link outcome="/admin/unconfirmed.xhtml"
-									value="Unconfirmed" /></li>
-							<li><h:link outcome="/admin/confirmed.xhtml"
-									value="Confirmed" /></li>
-							<li><h:link outcome="/admin/approved.xhtml" value="Approved" /></li>
-							<li><h:link outcome="/admin/denied.xhtml" value="Denied" /></li>
-							<li><h:link outcome="/register.xhtml" value="Register" /></li>
+							<li
+								class="#{request.servletPath.startsWith('/admin/unconfirmed')?'active':''}"><h:link
+									outcome="/admin/unconfirmed.xhtml" value="Unconfirmed" /></li>
+							<li
+								class="#{request.servletPath.startsWith('/admin/confirmed')?'active':''}"><h:link
+									outcome="/admin/confirmed.xhtml" value="Confirmed" /></li>
+							<li
+								class="#{request.servletPath.startsWith('/admin/approved')?'active':''}"><h:link
+									outcome="/admin/approved.xhtml" value="Approved" /></li>
+							<li
+								class="#{request.servletPath.startsWith('/admin/denied')?'active':''}"><h:link
+									outcome="/admin/denied.xhtml" value="Denied" /></li>
+							<li
+								class="#{request.servletPath.startsWith('/register')?'active':''}"><h:link
+									outcome="/register.xhtml" value="Register" /></li>
 						</ul>
 					</div>
-					<div class="pull-right">
-						<ui:fragment
-							rendered="#{facesContext.externalContext.remoteUser ne null}">
-							<h:commandButton styleClass="bnt primary"
-								action="#{requestHome.logout()}" value="Logout" />
-						</ui:fragment>
-					</div>
-				</h:form>
+					<h:form class="pull-right">
+						<div>
+							<h:outputText value="#{facesContext.externalContext.remoteUser}"
+								style="color:white; padding-right:10px;" />
+							<h:commandButton styleClass="btn primary"
+								action="#{loginAction.logout()}" value="Logout" />
+						</div>
+					</h:form>
+				</ui:fragment>
+				<ui:fragment
+					rendered="#{facesContext.externalContext.remoteUser eq null}">
+					<form class="pull-right">
+						<h:button outcome="/login?faces-redirect=true"
+							styleClass="btn primary" value="Login" />
+					</form>
+				</ui:fragment>
 			</div>
 		</div>
 	</div>
