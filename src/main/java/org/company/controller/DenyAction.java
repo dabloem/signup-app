@@ -26,7 +26,7 @@ public class DenyAction implements Serializable {
 	private static final long serialVersionUID = -2854429048979793667L;
 
 	@Inject
-	private Logger log;
+	transient private Logger log;
 
 	@Inject
 	private SignupRequestService requestService;
