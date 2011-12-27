@@ -23,4 +23,6 @@ public interface SignupRequestService {
 
 	public abstract void confirm(String id) ;
 
+	public abstract void approveDenied(String id);
+
 }

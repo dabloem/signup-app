@@ -10,7 +10,7 @@
 	<ui:define name="content">
 
 		<h:panelGroup rendered="#{empty approvedRequests}">
-			<em>No approved objs.</em>
+			<em>No approved requests.</em>
 		</h:panelGroup>
 		<h:dataTable var="obj" value="#{approvedRequests}"
 			rendered="#{not empty approvedRequests}" styleClass="zebra-striped">

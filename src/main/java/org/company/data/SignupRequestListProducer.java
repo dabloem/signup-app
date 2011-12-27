@@ -70,6 +70,7 @@ public class SignupRequestListProducer {
 			@Observes(notifyObserver = Reception.IF_EXISTS) @Approved final SignupRequest request) {
 		this.confirmedRequests = requestService.getAllConfirmedRequests();
 		this.approvedRequests = requestService.getAllApprovedRequests();
+		this.deniedRequests = requestService.getAllDeniedRequests();
 	}
 
 	public void onDenied(

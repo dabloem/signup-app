@@ -55,6 +55,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	@Inject
 	@Approved
 	private Event<SignupRequest> approveEventSrc;
+	
 
 	@Inject
 	@Denied
@@ -146,6 +147,17 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 		deniedCache.put(id, m);
 		denyEventSrc.fire(m);
 
+	}
+	
+	@Override
+	public void approveDenied(String id){
+		SignupRequest m = deniedCache.get(id);
+		Predicate.nonNull(m);
+
+		deniedCache.remove(id);
+		m.setStatus(Status.APPROVED);
+		approvedCache.put(id, m);
+		approveEventSrc.fire(m);
 	}
 
 }

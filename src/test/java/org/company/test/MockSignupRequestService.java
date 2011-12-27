@@ -73,4 +73,10 @@ public class MockSignupRequestService implements SignupRequestService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void approveDenied(String id) {
+		// TODO Auto-generated method stub
+		
+	}
 }

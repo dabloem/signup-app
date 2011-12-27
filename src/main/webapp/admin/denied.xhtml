@@ -10,36 +10,46 @@
 	<ui:define name="content">
 
 		<h:panelGroup rendered="#{empty deniedRequests}">
-			<em>No denied objs.</em>
+			<em>No denied requests.</em>
 		</h:panelGroup>
-		<h:dataTable var="obj" value="#{deniedRequests}"
-			rendered="#{not empty deniedRequests}" styleClass="zebra-striped">
-			<h:column>
-				<f:facet name="header">Name</f:facet>
+		<ui:fragment rendered="#{not empty deniedRequests}">
+			<h:form>
+				<h:dataTable var="obj" value="#{deniedRequests}"
+					styleClass="zebra-striped">
+					<h:column>
+						<f:facet name="header">Name</f:facet>
                 #{obj.name}
             </h:column>
-			<h:column>
-				<f:facet name="header">Email</f:facet>
+					<h:column>
+						<f:facet name="header">Email</f:facet>
                 #{obj.email}
             </h:column>
-			<h:column>
-				<f:facet name="header">Company Name</f:facet>
+					<h:column>
+						<f:facet name="header">Company Name</f:facet>
                 #{obj.companyName}
             </h:column>
-			<h:column>
-				<f:facet name="header">Created On</f:facet>
-				<h:outputText value="#{obj.createdOn}">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Action</f:facet>
-				#{' '}
-				<h:link outcome="/admin/requestDetail.xhtml" styleClass="btn"
-					value="View">
-					<f:param name="id" value="#{obj.id}" />
-				</h:link>
-			</h:column>
-		</h:dataTable>
+					<h:column>
+						<f:facet name="header">Created On</f:facet>
+						<h:outputText value="#{obj.createdOn}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Action</f:facet>
+
+
+						<h:link outcome="/admin/requestDetail.xhtml" styleClass="btn"
+							value="View">
+							<f:param name="id" value="#{obj.id}" />
+						</h:link>#{' '}
+				<ui:fragment
+							rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMINISTRATOR')}">
+							<h:commandButton action="#{requestHome.approveDenied(obj.id)}"
+								value="Approve" styleClass="btn primary" />
+						</ui:fragment>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</ui:fragment>
 	</ui:define>
 </ui:composition>

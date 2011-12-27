@@ -1,16 +1,12 @@
 package org.company.controller;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 
 import org.company.model.SignupRequest;
 import org.company.service.SignupRequestService;
@@ -35,6 +31,11 @@ public class RequestHome {
 	public void approve(String id) {
 		log.info("approve....@" + id);
 		requestService.approve(id);
+	}
+	
+	public void approveDenied(String id) {
+		log.info("approve denied....@" + id);
+		requestService.approveDenied(id);
 	}
 
 	public void onConfirmed(

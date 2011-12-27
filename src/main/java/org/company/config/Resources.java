@@ -55,7 +55,7 @@ public class Resources {
     @ApplicationScoped
     public Configuration unconfirmedCacheConfiguration() {
         return new Configuration().fluent().eviction().strategy(EvictionStrategy.FIFO).maxEntries(10)
-                    .build();
+                    .expiration().lifespan(24L*60*60*1000).build();
     }
 	
 	
@@ -66,7 +66,7 @@ public class Resources {
     @ApplicationScoped
     public Configuration confirmedCacheConfiguration() {
         return new Configuration().fluent().eviction().strategy(EvictionStrategy.FIFO).maxEntries(10)
-                    .build();
+        		.expiration().lifespan(24L*60*60*1000).build();
     }
  
 
@@ -76,7 +76,7 @@ public class Resources {
     @ApplicationScoped
     public Configuration approvedCacheConfiguration() {
         return new Configuration().fluent().eviction().strategy(EvictionStrategy.FIFO).maxEntries(10)
-                    .build();
+        		.expiration().lifespan(24L*60*60*1000).build();
     }
 	
 	
@@ -86,7 +86,7 @@ public class Resources {
     @ApplicationScoped
     public Configuration deniedCacheConfiguration() {
         return new Configuration().fluent().eviction().strategy(EvictionStrategy.FIFO).maxEntries(10)
-                    .build();
+        		.expiration().lifespan(24L*60*60*1000).build();
     }
 	
 	@Produces
