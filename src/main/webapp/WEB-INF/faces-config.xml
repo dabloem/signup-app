@@ -14,6 +14,12 @@
     	<phase-listener>
     		org.company.controller.MultiPageMessagesSupportPhaseListener
     	</phase-listener>
+    
     </lifecycle>
+   <factory>
+   		<exception-handler-factory>
+   		org.company.controller.DefaultExceptionHandlerFactory
+   		</exception-handler-factory>
+   </factory>
 
 </faces-config>

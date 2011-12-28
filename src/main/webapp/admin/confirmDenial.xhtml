@@ -6,7 +6,7 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam name="id" value="#{denyAction.requestId}" />
+			<f:viewParam name="id" value="#{denyAction.requestId}" required="true"/>
 			<f:event listener="#{denyAction.loadRequest}" type="preRenderView" />
 		</f:metadata>
 	</ui:define>

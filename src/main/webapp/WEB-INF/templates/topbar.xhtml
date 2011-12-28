@@ -32,7 +32,7 @@
 						<div>
 							<h:outputText value="#{facesContext.externalContext.remoteUser}"
 								style="color:white; padding-right:10px;" />
-							<h:commandButton styleClass="btn primary"
+							<h:commandLink styleClass="btn primary"
 								action="#{loginAction.logout()}" value="Logout" />
 						</div>
 					</h:form>
@@ -40,7 +40,7 @@
 				<ui:fragment
 					rendered="#{facesContext.externalContext.remoteUser eq null}">
 					<form class="pull-right">
-						<h:button outcome="/login?faces-redirect=true"
+						<h:link outcome="/login?faces-redirect=true"
 							styleClass="btn primary" value="Login" />
 					</form>
 				</ui:fragment>

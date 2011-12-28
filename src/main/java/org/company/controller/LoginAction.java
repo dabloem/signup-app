@@ -1,22 +1,14 @@
 package org.company.controller;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.event.Reception;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-
-import org.company.model.SignupRequest;
-import org.company.service.SignupRequestService;
-import org.company.service.events.Approved;
-import org.company.service.events.Confirmed;
 
 @Named("loginAction")
 @RequestScoped
@@ -49,6 +41,12 @@ public class LoginAction {
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
 		externalContext.invalidateSession();
+		try {
+			((HttpServletRequest) externalContext.getRequest()).logout();
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/login?faces-redirect=true";
 	}
 
