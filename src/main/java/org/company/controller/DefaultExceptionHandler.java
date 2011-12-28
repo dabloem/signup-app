@@ -1,57 +1,26 @@
 package org.company.controller;
 
-import java.util.Iterator;
+import java.util.logging.Logger;
 
-import javax.faces.FacesException;
-import javax.faces.application.NavigationHandler;
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
 
 import org.company.service.SignupRequestNotFoundException;
+import org.jboss.solder.exception.control.CaughtException;
+import org.jboss.solder.exception.control.Handles;
+import org.jboss.solder.exception.control.HandlesExceptions;
 
-public class DefaultExceptionHandler extends ExceptionHandlerWrapper {
+@HandlesExceptions
+public class DefaultExceptionHandler {
 
-	private ExceptionHandler wrapped;
-
-	public DefaultExceptionHandler(ExceptionHandler wrapped) {
-		this.wrapped = wrapped;
-	}
-
-	@Override
-	public ExceptionHandler getWrapped() {
-		return this.wrapped;
-	}
-
-	@Override
-	public void handle() throws FacesException {
-		Iterator<ExceptionQueuedEvent> events = getUnhandledExceptionQueuedEvents()
-				.iterator();
-
-		while (events.hasNext()) {
-			ExceptionQueuedEvent event = events.next();
-			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event
-					.getSource();
-			Throwable t = context.getException();
-			if (t instanceof SignupRequestNotFoundException) {
-				try {
-					handleSignupRequestNotFoundException((SignupRequestNotFoundException) t);
-				} finally {
-					events.remove();
-				}
-			}
-
-			getWrapped().handle();
-		}
-
-	}
-
-	private void handleSignupRequestNotFoundException(
-			SignupRequestNotFoundException vee) {
+	public void handleSignupRequestNotFoundException(
+			@Handles CaughtException<SignupRequestNotFoundException> event,
+			Logger log) {
+		log.info("Exception logged by seam-catch catcher: "
+				+ event.getException().getMessage());
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().setResponseStatus(404);
+		log.info("context @"+context);
+		log.info("external context @"+context.getExternalContext());
+		context.getExternalContext().setResponseStatus(404);	
 		context.responseComplete();
 	}
 

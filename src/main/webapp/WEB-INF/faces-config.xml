@@ -16,10 +16,10 @@
     	</phase-listener>
     
     </lifecycle>
-   <factory>
+   <!-- <factory>
    		<exception-handler-factory>
    		org.company.controller.DefaultExceptionHandlerFactory
    		</exception-handler-factory>
-   </factory>
+   </factory> -->
 
 </faces-config>
