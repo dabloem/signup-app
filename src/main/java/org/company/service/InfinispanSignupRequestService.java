@@ -23,8 +23,9 @@ import org.company.service.events.Confirmed;
 import org.company.service.events.Denied;
 import org.company.service.events.Registered;
 import org.infinispan.Cache;
+import org.jboss.ejb3.annotation.SecurityDomain;
 
-@Named
+@SecurityDomain(value="other")
 @Stateless
 public class InfinispanSignupRequestService implements SignupRequestService {
 

@@ -43,11 +43,8 @@
 							styleClass="btn">
 							<f:param name="id" value="#{obj.id}" />
 						</h:link>#{' '}
-						<ui:fragment
-							rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMINISTRATOR')}">
 							<h:commandButton action="#{requestHome.confirm(obj.id)}"
 								value="Confirm" styleClass="btn primary" />
-						</ui:fragment>
 					</h:column>
 					<!--f:facet name="footer">
 						<h:panelGroup>   REST URL for all Unconfirmed Requests: <a
