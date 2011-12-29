@@ -2,7 +2,6 @@ package org.company.controller;
 
 import java.util.logging.Logger;
 
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
@@ -24,19 +23,17 @@ public class RequestHome {
 	@Inject
 	private SignupRequestService requestService;
 
-	@RolesAllowed("ROLE_ADMINISTRATOR")
+
 	public void confirm(String id) {
 		log.info("confirm....@" + id);
 		requestService.confirm(id);
 	}
 
-	@RolesAllowed("ROLE_ADMINISTRATOR")
 	public void approve(String id) {
 		log.info("approve....@" + id);
 		requestService.approve(id);
 	}
 	
-	@RolesAllowed("ROLE_ADMINISTRATOR")
 	public void approveDenied(String id) {
 		log.info("approve denied....@" + id);
 		requestService.approveDenied(id);

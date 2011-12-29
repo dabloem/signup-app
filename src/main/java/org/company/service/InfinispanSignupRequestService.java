@@ -1,13 +1,13 @@
 package org.company.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,7 +25,7 @@ import org.company.service.events.Registered;
 import org.infinispan.Cache;
 
 @Named
-@ApplicationScoped
+@Stateless
 public class InfinispanSignupRequestService implements SignupRequestService {
 
 	@Inject
@@ -115,6 +115,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
+	@RolesAllowed("ROLE_ADMINISTRATOR")
 	public void confirm(String id){
 		SignupRequest m = (SignupRequest) unconfirmedCache.get(id);
 		Predicate.nonNull(m);
@@ -126,6 +127,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
+	@RolesAllowed("ROLE_ADMINISTRATOR")
 	public void approve(String id){
 		SignupRequest m = confirmedCache.get(id);
 		Predicate.nonNull(m);
@@ -137,6 +139,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
+	@RolesAllowed("ROLE_ADMINISTRATOR")
 	public void deny(String id){
 		SignupRequest m = confirmedCache.get(id);
 
@@ -150,6 +153,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 	
 	@Override
+	@RolesAllowed("ROLE_ADMINISTRATOR")
 	public void approveDenied(String id){
 		SignupRequest m = deniedCache.get(id);
 		Predicate.nonNull(m);

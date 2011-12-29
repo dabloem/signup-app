@@ -1,27 +1,31 @@
 package org.company.controller;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
-import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.company.service.SignupRequestNotFoundException;
 import org.jboss.solder.exception.control.CaughtException;
 import org.jboss.solder.exception.control.Handles;
 import org.jboss.solder.exception.control.HandlesExceptions;
+import org.jboss.solder.servlet.WebRequest;
 
 @HandlesExceptions
 public class DefaultExceptionHandler {
 
 	public void handleSignupRequestNotFoundException(
-			@Handles CaughtException<SignupRequestNotFoundException> event,
+			@Handles @WebRequest CaughtException<SignupRequestNotFoundException> event, HttpServletResponse response,
 			Logger log) {
 		log.info("Exception logged by seam-catch catcher: "
 				+ event.getException().getMessage());
-		FacesContext context = FacesContext.getCurrentInstance();
-		log.info("context @"+context);
-		log.info("external context @"+context.getExternalContext());
-		context.getExternalContext().setResponseStatus(404);	
-		context.responseComplete();
+
+		try {
+			response.sendError(404);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
