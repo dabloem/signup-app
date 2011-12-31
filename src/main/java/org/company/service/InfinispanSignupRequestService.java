@@ -10,7 +10,6 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.company.config.ApprovedCache;
 import org.company.config.ConfirmedCache;
@@ -116,7 +115,7 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	}
 
 	@Override
-	@RolesAllowed("ROLE_ADMINISTRATOR")
+	//@RolesAllowed("ROLE_ADMINISTRATOR")
 	public void confirm(String id){
 		SignupRequest m = (SignupRequest) unconfirmedCache.get(id);
 		Predicate.nonNull(m);
@@ -143,7 +142,6 @@ public class InfinispanSignupRequestService implements SignupRequestService {
 	@RolesAllowed("ROLE_ADMINISTRATOR")
 	public void deny(String id){
 		SignupRequest m = confirmedCache.get(id);
-
 		Predicate.nonNull(m);
 
 		confirmedCache.remove(id);

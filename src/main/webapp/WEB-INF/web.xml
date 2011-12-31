@@ -35,7 +35,10 @@
     	<extension>ico</extension>
     	<mime-type>image/x-icon</mime-type>
     </mime-mapping>
-    
+     <error-page>
+    	<error-code>401</error-code>
+    	<location>/401.jsf</location>
+    </error-page>
     <error-page>
     	<error-code>403</error-code>
     	<location>/403.jsf</location>
@@ -61,7 +64,7 @@
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>Protected API</web-resource-name>
-            <url-pattern>/rest/*</url-pattern>
+            <url-pattern>/rest/signup/secured/*</url-pattern>
         </web-resource-collection>
         
         <auth-constraint>
@@ -71,7 +74,7 @@
     </security-constraint>
     <login-config>
         <auth-method>BASIC</auth-method>
-        <realm-name>SignupRealm</realm-name>
+        <realm-name>other</realm-name>
     </login-config>
     <security-role>
         <role-name>ROLE_ADMINISTRATOR</role-name>

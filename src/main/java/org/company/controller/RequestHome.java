@@ -5,8 +5,6 @@ import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -28,12 +26,7 @@ public class RequestHome {
 
 	public void confirm(String id) {
 		log.info("confirm....@" + id);
-                try{
-                    requestService.confirm(id);
-                } catch (Exception e){
-                    FacesContext fc = FacesContext.getCurrentInstance();
-                    fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage()));
-                }
+		requestService.confirm(id);
 	}
 
 	public void approve(String id) {

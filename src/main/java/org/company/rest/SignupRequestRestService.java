@@ -31,7 +31,7 @@ public class SignupRequestRestService {
 
 	@GET
 	@Produces("text/xml")
-	@Path("/unconfirmed")
+	@Path("/secured/unconfirmed")
 	public List<SignupRequest> listAllUnconfirmedRequsts() {
 		List<SignupRequest> results = signupRequestService
 				.getAllUnconfirmedRequests();
@@ -40,7 +40,7 @@ public class SignupRequestRestService {
 
 	@GET
 	@Produces("text/xml")
-	@Path("/confirmed")
+	@Path("/secured/confirmed")
 	public List<SignupRequest> listAllConfirmedRequsts() {
 		List<SignupRequest> results = signupRequestService
 				.getAllConfirmedRequests();
@@ -49,7 +49,7 @@ public class SignupRequestRestService {
 
 	@GET
 	@Produces("text/xml")
-	@Path("/approved")
+	@Path("/secured/approved")
 	public List<SignupRequest> listAllApprovedRequsts() {
 		List<SignupRequest> results = signupRequestService
 				.getAllApprovedRequests();
@@ -58,7 +58,7 @@ public class SignupRequestRestService {
 
 	@GET
 	@Produces("text/xml")
-	@Path("/denied")
+	@Path("/secured/denied")
 	public List<SignupRequest> listAllDeniedRequsts() {
 		List<SignupRequest> results = signupRequestService
 				.getAllDeniedRequests();
@@ -66,7 +66,7 @@ public class SignupRequestRestService {
 	}
 
 	@GET
-	@Path("/{id:[\\w]{32}}")
+	@Path("/secured/{id:[\\w]{32}}")
 	@Produces("text/xml")
 	public Response lookupById(@PathParam("id") String id) {
 		SignupRequest _request = null;
@@ -102,7 +102,7 @@ public class SignupRequestRestService {
 	}
 
 	@GET
-	@Path("/approve/{id:[\\w]{32}}")
+	@Path("/secured/approve/{id:[\\w]{32}}")
 	public Response approve(@PathParam("id") String id) {
 
 		signupRequestService.approve(id);
@@ -111,7 +111,7 @@ public class SignupRequestRestService {
 	}
 
 	@GET
-	@Path("/deny/{id:[\\w]{32}}")
+	@Path("/secured/deny/{id:[\\w]{32}}")
 	public Response deny(@PathParam("id") String id) {
 		signupRequestService.deny(id);
 		return Response.seeOther(redirectUri("/ok.jsf")).build();
