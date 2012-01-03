@@ -24,7 +24,13 @@
 		<!-- Specify the JBoss AS directory to be the JBOSS_HOME environment variable -->
 		<jboss.home>${env.JBOSS_HOME}</jboss.home>
 		<infinispan.version>5.1.0.BETA3</infinispan.version>
-		<version.arquillian_core>1.0.0.CR6</version.arquillian_core>
+		<junit.version>4.8.2</junit.version>
+		<mockito.version>1.8.5</mockito.version>
+		<jboss-as-arquillian-container-manager.version>7.0.2.Final</jboss-as-arquillian-container-manager.version>
+		<shrinkwrap.version>1.0.0-beta-3</shrinkwrap.version>
+		<arquillian.version>1.0.0.CR6</arquillian.version>
+		<arquillian-weld-ee-embedded-1.1.version>1.0.0.CR2</arquillian-weld-ee-embedded-1.1.version>
+		<jboss-javaee-6.0.version>1.0.0.Final</jboss-javaee-6.0.version>
 	</properties>
 
 	<dependencyManagement>
@@ -42,15 +48,15 @@
 				JBoss AS 7! -->
 			<dependency>
 				<groupId>org.jboss.spec</groupId>
-				<artifactId>jboss-javaee-web-6.0</artifactId>
-				<version>2.0.0.Final</version>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>${jboss-javaee-6.0.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.arquillian</groupId>
 				<artifactId>arquillian-bom</artifactId>
-				<version>${version.arquillian_core}</version>
+				<version>${arquillian.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -59,13 +65,14 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- Infinispan dependency -->
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-core</artifactId>
 			<version>${infinispan.version}</version>
 		</dependency>
 
-		<!-- Infinispan dependency -->
+
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-cdi</artifactId>
@@ -78,6 +85,8 @@
 		<dependency>
 			<groupId>org.jboss.spec.javax.faces</groupId>
 			<artifactId>jboss-jsf-api_2.0_spec</artifactId>
+			<version>1.0.0.Final</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Import the CDI API, we use provided scope as the API is included in 
@@ -94,6 +103,14 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<version>${jboss-javaee-6.0.version}</version>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- Import the Common Annotations API (JSR-250), we use provided scope 
 			as the API is included in JBoss AS 7 -->
 		<dependency>
@@ -107,6 +124,7 @@
 		<dependency>
 			<groupId>org.jboss.spec.javax.ws.rs</groupId>
 			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+			<version>1.0.0.Final</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -126,6 +144,14 @@
 			<groupId>org.jboss.spec.javax.ejb</groupId>
 			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.ejb3</groupId>
+			<artifactId>jboss-ejb3-ext-api</artifactId>
+			<version>2.0.0-beta-1</version>
+			<scope>provided</scope>
+			<type>jar</type>
 		</dependency>
 
 		<dependency>
@@ -204,6 +230,13 @@
 		<!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA) 
 			JPA from JUnit/TestNG -->
 		<dependency>
+			<groupId>org.jboss.arquillian</groupId>
+			<artifactId>arquillian-bom</artifactId>
+			<version>${arquillian.version}</version>
+			<scope>import</scope>
+			<type>pom</type>
+		</dependency>
+		<dependency>
 			<groupId>org.jboss.arquillian.junit</groupId>
 			<artifactId>arquillian-junit-container</artifactId>
 			<scope>test</scope>
@@ -215,17 +248,27 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.jboss.shrinkwrap</groupId>
+			<artifactId>shrinkwrap-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.jboss.shrinkwrap.descriptors</groupId>
 			<artifactId>shrinkwrap-descriptors-impl</artifactId>
 			<scope>test</scope>
 		</dependency>
-	 <dependency>
-	  <groupId>org.jboss.ejb3</groupId>
-	  <artifactId>jboss-ejb3-ext-api</artifactId>
-	  <version>2.0.0-beta-1</version>
-          <scope>provided</scope>
-	  <type>jar</type>
-	 </dependency>
+		<dependency>
+			<groupId>org.apache.xalan</groupId>
+			<artifactId>serializer</artifactId>
+			<version>2.7.1-1.jbossorg</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -286,38 +329,7 @@
 		</profile>
 
 		<profile>
-			<!-- We add the JBoss repository as we need the JBoss AS connectors for 
-				Arquillian -->
-			<repositories>
-				<!-- The JBoss Community public repository is a composite repository 
-					of several major repositories -->
-				<!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
-				<repository>
-					<id>jboss-public-repository</id>
-					<name>JBoss Repository</name>
-					<url>http://repository.jboss.org/nexus/content/groups/public</url>
-					<!-- These optional flags are designed to speed up your builds by reducing 
-						remote server calls -->
-					<releases>
-					</releases>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
 
-			<pluginRepositories>
-				<pluginRepository>
-					<id>jboss-public-repository</id>
-					<name>JBoss Repository</name>
-					<url>http://repository.jboss.org/nexus/content/groups/public</url>
-					<releases>
-					</releases>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</pluginRepository>
-			</pluginRepositories>
 
 			<!-- An optional Arquillian testing profile that executes tests in your 
 				JBoss AS instance -->
@@ -348,15 +360,8 @@
 				<dependency>
 					<groupId>org.jboss.as</groupId>
 					<artifactId>jboss-as-arquillian-container-remote</artifactId>
-					<version>7.0.2.Final</version>
+					<version>${jboss-as-arquillian-container-manager.version}</version>
 					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.spec</groupId>
-					<artifactId>jboss-javaee-web-6.0</artifactId>
-					<version>2.0.0.Final</version>
-					<type>pom</type>
-					<scope>provided</scope>
 				</dependency>
 			</dependencies>
 		</profile>
