@@ -23,7 +23,7 @@ public class SignupRequestServiceTest {
 	@Deployment
 	public static JavaArchive createDeployment() {
 		return ShrinkWrap.create(JavaArchive.class)
-				.addClasses(SignupRequestService.class,InfinispanSignupRequestService.class,Predicate.class, SignupRequestNotFoundException.class)
+				.addClasses(SignupRequestService.class,InfinispanSignupRequestService.class, Predicate.class, SignupRequestNotFoundException.class)
 				.addPackage(SignupRequest.class.getPackage())
 				.addPackage(Resources.class.getPackage())
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
