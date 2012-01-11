@@ -28,11 +28,11 @@
 									outcome="/register.xhtml" value="Register" /></li>
 						</ul>
 					</div>
-					<h:form class="pull-right">
+					<h:form id="logoutForm" class="pull-right">
 						<div>
 							<h:outputText value="#{facesContext.externalContext.remoteUser}"
 								style="color:white; padding-right:10px;" />
-							<h:commandLink styleClass="btn primary"
+							<h:commandLink id="logoutButton" styleClass="btn primary"
 								action="#{loginAction.logout()}" value="Logout" />
 						</div>
 					</h:form>

@@ -6,15 +6,16 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import org.company.config.ApprovedCache;
-import org.company.config.ConfirmedCache;
-import org.company.config.DeniedCache;
-import org.company.config.UnconfirmedCache;
+import org.company.context.qulifiers.ApprovedCache;
+import org.company.context.qulifiers.ConfirmedCache;
+import org.company.context.qulifiers.DeniedCache;
+import org.company.context.qulifiers.UnconfirmedCache;
 import org.company.model.SignupRequest;
 import org.company.model.Status;
 import org.company.service.events.Approved;
@@ -26,6 +27,7 @@ import org.jboss.ejb3.annotation.SecurityDomain;
 
 @SecurityDomain(value="other")
 @Stateless
+//@DeclareRoles({"ROLE_ADMINISTRATOR","ROLE_VIEWER"})
 public class InfinispanSignupRequestService implements SignupRequestService {
 
 	@Inject

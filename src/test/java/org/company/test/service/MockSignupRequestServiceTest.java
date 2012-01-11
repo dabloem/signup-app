@@ -12,6 +12,7 @@ import org.company.model.Status;
 import org.company.service.Predicate;
 import org.company.service.SignupRequestNotFoundException;
 import org.company.service.SignupRequestService;
+import org.company.service.events.Confirmed;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -31,6 +32,7 @@ public class MockSignupRequestServiceTest {
 				.addClass(MockSignupRequestService.class)
 				.addClass(Predicate.class)
 				.addClass(SignupRequestNotFoundException.class)
+				.addPackages(false, Confirmed.class.getPackage())
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 

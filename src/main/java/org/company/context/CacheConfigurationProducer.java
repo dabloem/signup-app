@@ -1,4 +1,4 @@
-package org.company.config;
+package org.company.context;
 
 import java.util.logging.Logger;
 
@@ -6,6 +6,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
+import org.company.context.qulifiers.ApprovedCache;
+import org.company.context.qulifiers.ConfirmedCache;
+import org.company.context.qulifiers.DeniedCache;
+import org.company.context.qulifiers.UnconfirmedCache;
 import org.infinispan.cdi.ConfigureCache;
 import org.infinispan.config.Configuration;
 import org.infinispan.eviction.EvictionStrategy;
@@ -16,7 +20,7 @@ import org.infinispan.loaders.file.FileCacheStoreConfig;
  * @author hantsy
  * 
  */
-public class Resources {
+public class CacheConfigurationProducer {
 
 	// @Produces
 	// @ApplicationScoped
@@ -144,9 +148,4 @@ public class Resources {
 
 	}
 
-	@Produces
-	public Logger produceLog(InjectionPoint injectionPoint) {
-		return Logger.getLogger(injectionPoint.getMember().getDeclaringClass()
-				.getName());
-	}
 }

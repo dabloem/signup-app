@@ -14,7 +14,7 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<h:form>
+		<h:form id="loginForm">
 			<fieldset>
 				<div class="clearfix">
 					<ui:fragment
@@ -26,17 +26,17 @@
 				<div class="clearfix">
 					<label for="j_username">Username:</label>
 					<div class="input">
-						<h:inputText value="#{loginAction.username}" />
+						<h:inputText id="username" value="#{loginAction.username}" />
 					</div>
 				</div>
 				<div class="clearfix">
 					<label for="j_password">Password:</label>
 					<div class="input">
-						<h:inputSecret value="#{loginAction.password}" />
+						<h:inputSecret id="password"  value="#{loginAction.password}" />
 					</div>
 				</div>
 				<div class="actions">
-					<h:commandButton type="submit" value="Login" class="btn primary"
+					<h:commandButton id="loginButton" type="submit" value="Login" class="btn primary"
 						action="#{loginAction.login()}" />
 				</div>
 			</fieldset>

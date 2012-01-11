@@ -1,4 +1,4 @@
-package org.company.config;
+package org.company.context.qulifiers;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

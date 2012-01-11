@@ -1,4 +1,4 @@
-package org.company.data;
+package org.company.context;
 
 import java.util.List;
 import java.util.logging.Logger;

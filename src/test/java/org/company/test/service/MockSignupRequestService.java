@@ -7,12 +7,18 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.company.model.SignupRequest;
 import org.company.model.Status;
 import org.company.service.Predicate;
 import org.company.service.SignupRequestService;
+import org.company.service.events.Approved;
+import org.company.service.events.Confirmed;
+import org.company.service.events.Denied;
+import org.company.service.events.Registered;
 
 @Named
 @ApplicationScoped
@@ -26,21 +32,21 @@ public class MockSignupRequestService implements SignupRequestService {
 
 	private ConcurrentHashMap<String, SignupRequest> deniedCache = new ConcurrentHashMap<String, SignupRequest>();
 
-//	@Inject
-//	@Registered
-//	Event<SignupRequest> registerEventSrc;
-//
-//	@Inject
-//	@Confirmed
-//	private Event<SignupRequest> confirmEventSrc;
-//
-//	@Inject
-//	@Approved
-//	private Event<SignupRequest> approveEventSrc;
-//
-//	@Inject
-//	@Denied
-//	private Event<SignupRequest> denyEventSrc;
+	@Inject
+	@Registered
+	Event<SignupRequest> registerEventSrc;
+
+	@Inject
+	@Confirmed
+	private Event<SignupRequest> confirmEventSrc;
+
+	@Inject
+	@Approved
+	private Event<SignupRequest> approveEventSrc;
+
+	@Inject
+	@Denied
+	private Event<SignupRequest> denyEventSrc;
 
 	@Override
 	public List<SignupRequest> getAllUnconfirmedRequests() {
@@ -72,7 +78,7 @@ public class MockSignupRequestService implements SignupRequestService {
 		m.setStatus(Status.UNCONFIRMED);
 		m.setCreatedOn(new Date());
 		unconfirmedCache.put(m.getId(), m);
-		//registerEventSrc.fire(m);
+		registerEventSrc.fire(m);
 	}
 
 	@Override
@@ -103,7 +109,7 @@ public class MockSignupRequestService implements SignupRequestService {
 		unconfirmedCache.remove(id);
 		m.setStatus(Status.CONFIRMED);
 		confirmedCache.put(id, m);
-		//confirmEventSrc.fire(m);
+		confirmEventSrc.fire(m);
 	}
 
 	@Override
@@ -114,7 +120,7 @@ public class MockSignupRequestService implements SignupRequestService {
 		confirmedCache.remove(id);
 		m.setStatus(Status.APPROVED);
 		approvedCache.put(id, m);
-		//approveEventSrc.fire(m);
+		approveEventSrc.fire(m);
 	}
 
 	@Override
@@ -125,7 +131,7 @@ public class MockSignupRequestService implements SignupRequestService {
 		confirmedCache.remove(id);
 		m.setStatus(Status.DENIED);
 		deniedCache.put(id, m);
-		//denyEventSrc.fire(m);
+		denyEventSrc.fire(m);
 
 	}
 
@@ -137,6 +143,6 @@ public class MockSignupRequestService implements SignupRequestService {
 		deniedCache.remove(id);
 		m.setStatus(Status.APPROVED);
 		approvedCache.put(id, m);
-		//approveEventSrc.fire(m);
+		approveEventSrc.fire(m);
 	}
 }

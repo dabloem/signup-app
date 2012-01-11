@@ -8,8 +8,13 @@
 	<engine>
 		<property name="deploymentExportPath">target/</property>
 	</engine>
+	<defaultProtocol type="Servlet 3.0" />
 
 	<container qualifier="jbossas-remote-7" default="true">
+		<configuration>
+			<property name="managementAddress">127.0.0.1</property>
+			<property name="managementPort">9999</property>
+		</configuration>
 	</container>
 
 </arquillian>

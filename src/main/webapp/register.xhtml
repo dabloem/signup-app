@@ -12,22 +12,22 @@
 
 	<ui:define name="content">
 
-		<h:form id="reg">
+		<h:form id="regForm">
 			<fieldset>
 				<legend>Register</legend>
-				<bscomp:formInputField label="firstname"
+				<bscomp:formInputField label="firstname" id="firstName"
 					value="#{registerAction.currentRequest.firstName}" />
-				<bscomp:formInputField label="lastname"
+				<bscomp:formInputField label="lastname" id="lastName"
 					value="#{registerAction.currentRequest.lastName}" />
-				<bscomp:formInputField label="email"
+				<bscomp:formInputField label="email" id="email"
 					value="#{registerAction.currentRequest.email}" />
-				<bscomp:formInputField label="ompany name"
+				<bscomp:formInputField label="Company name" id="companyName"
 					value="#{registerAction.currentRequest.companyName}" />
-				<bscomp:formInputField label="comment"
+				<bscomp:formInputField label="comment" id="comment"
 					value="#{registerAction.currentRequest.comment}" />
 
 				<div class="actions">
-					<h:commandButton id="register" styleClass="btn primary"
+					<h:commandButton id="registerButton" styleClass="btn primary"
 						action="#{registerAction.register}" value="Register" />
 					<h:outputText value=" Registered!"
 						rendered="#{facesContext.postback and empty facesContext.messageList}"
