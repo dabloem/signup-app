@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.enterprise.event.Reception;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -20,8 +22,9 @@ public class LoginAction {
 
 	private String username;
 	private String password;
-	
-	@Inject 
+
+	@Inject
+	@LoggedIn
 	Event<String> loggedInEventSrc;
 
 	public String getUsername() {
@@ -59,15 +62,22 @@ public class LoginAction {
 				.getCurrentInstance().getExternalContext().getRequest();
 		try {
 			request.login(username, password);
-			
+
 			loggedInEventSrc.fire(this.username);
-			
+
 			return "/admin/unconfirmed?faces-redirect=true";
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "/login?faces-redirect=true&error=1";
+	}
+
+	public void onLoggedIn(
+			@Observes(notifyObserver = Reception.IF_EXISTS) @LoggedIn String username) {
+		log.info("loggedin event was triggered.");
+		FacesUtil.info("Welcome back, " + username);
+
 	}
 
 }

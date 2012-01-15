@@ -4,13 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
-import javax.naming.Context;
-import javax.naming.NamingException;
 
 import org.company.context.SignupRequestListProducer;
 import org.company.context.qulifiers.ApprovedCache;
@@ -21,11 +17,9 @@ import org.company.service.SignupRequestService;
 import org.company.service.events.Approved;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.prototyping.context.api.ArquillianContext;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.junit.Test;
@@ -64,8 +58,8 @@ public class SignupRequestServiceTest {
 		return jar;
 	}
 
-	@Inject
-	private ArquillianContext arquillianContext;
+//	@Inject
+//	private ArquillianContext arquillianContext;
 
 	@Inject
 	SignupRequestService service;
@@ -109,14 +103,14 @@ public class SignupRequestServiceTest {
 	 */
 	@Test
 	public void testSignupService() {
-		Context _context = this.login("admin", "admin");
-
-		try {
-			this.service = this.getEjb(_context);
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		Context _context = this.login("admin", "admin");
+//
+//		try {
+//			this.service = this.getEjb(_context);
+//		} catch (NamingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		SignupRequest request = new SignupRequest();
 		request.setComment("Comment");
@@ -157,14 +151,14 @@ public class SignupRequestServiceTest {
 	 */
 	@Test
 	public void testSignupService2() {
-		Context _context = this.login("admin", "admin");
-
-		try {
-			this.service = this.getEjb(_context);
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		Context _context = this.login("admin", "admin");
+//
+//		try {
+//			this.service = this.getEjb(_context);
+//		} catch (NamingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		SignupRequest request = new SignupRequest();
 		request.setComment("Comment");
@@ -206,26 +200,26 @@ public class SignupRequestServiceTest {
 
 	}
 
-	private Context login(final String username, final String password) {
-		// Precondition checks
-		assert username != null : "username must be supplied";
-		assert password != null : "password must be supplied";
-
-		// Log in and create a context
-		final Map<String, Object> namingContextProps = new HashMap<String, Object>();
-		namingContextProps.put(Context.SECURITY_PRINCIPAL, username);
-		namingContextProps.put(Context.SECURITY_CREDENTIALS, password);
-		final Context context = arquillianContext.get(Context.class,
-				namingContextProps);
-
-		// Return
-		return context;
-	}
-
-	private SignupRequestService getEjb(final Context context)
-			throws NamingException {
-		return (SignupRequestService) context
-				.lookup("InfinispanSignupRequestService");
-	}
+//	private Context login(final String username, final String password) {
+//		// Precondition checks
+//		assert username != null : "username must be supplied";
+//		assert password != null : "password must be supplied";
+//
+//		// Log in and create a context
+//		final Map<String, Object> namingContextProps = new HashMap<String, Object>();
+//		namingContextProps.put(Context.SECURITY_PRINCIPAL, username);
+//		namingContextProps.put(Context.SECURITY_CREDENTIALS, password);
+//		final Context context = arquillianContext.get(Context.class,
+//				namingContextProps);
+//
+//		// Return
+//		return context;
+//	}
+//
+//	private SignupRequestService getEjb(final Context context)
+//			throws NamingException {
+//		return (SignupRequestService) context
+//				.lookup("InfinispanSignupRequestService");
+//	}
 
 }

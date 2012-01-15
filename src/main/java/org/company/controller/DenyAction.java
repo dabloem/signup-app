@@ -76,8 +76,12 @@ public class DenyAction implements Serializable {
 		return "/admin/denied?faces-redirect=true";
 	}
 
+	public void onDenied(
+			@Observes(notifyObserver = Reception.IF_EXISTS) @Denied SignupRequest request) {
+		log.info("denied event was triggered.");
+		FacesUtil.info("Signup Request '" + request.getId() + "' was denied.");
 
-
+	}
 
 	public String cancel() {
 		log.info("cancel....@");
