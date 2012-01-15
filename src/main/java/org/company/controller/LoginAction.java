@@ -3,6 +3,7 @@ package org.company.controller;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -19,6 +20,9 @@ public class LoginAction {
 
 	private String username;
 	private String password;
+	
+	@Inject 
+	Event<String> loggedInEventSrc;
 
 	public String getUsername() {
 		return username;
@@ -55,8 +59,9 @@ public class LoginAction {
 				.getCurrentInstance().getExternalContext().getRequest();
 		try {
 			request.login(username, password);
-			FacesUtil.info("Welcome back, " + this.username);
-
+			
+			loggedInEventSrc.fire(this.username);
+			
 			return "/admin/unconfirmed?faces-redirect=true";
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block

@@ -12,7 +12,7 @@
 		<h:panelGroup rendered="#{empty approvedRequests}">
 			<em>No approved requests.</em>
 		</h:panelGroup>
-		<h:dataTable var="obj" value="#{approvedRequests}"
+		<h:dataTable id="dataTable" var="obj" value="#{approvedRequests}"
 			rendered="#{not empty approvedRequests}" styleClass="zebra-striped">
 			<h:column>
 				<f:facet name="header">Name</f:facet>
@@ -34,7 +34,7 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Action</f:facet>
-				<h:link outcome="/admin/requestDetail.xhtml" styleClass="btn"
+				<h:link id="viewLink" outcome="/admin/requestDetail.xhtml" styleClass="btn"
 					value="View">
 					<f:param name="id" value="#{obj.id}" />
 				</h:link>

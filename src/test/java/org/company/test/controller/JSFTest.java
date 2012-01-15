@@ -14,6 +14,7 @@ import junit.framework.Assert;
 
 import org.company.context.LoggerProducer;
 import org.company.context.SignupRequestListProducer;
+import org.company.controller.LoggedIn;
 import org.company.controller.LoginAction;
 import org.company.model.SignupRequest;
 import org.company.model.Status;
@@ -70,6 +71,7 @@ public class JSFTest {
 				.addClass(SignupRequestNotFoundException.class)
 				.addClasses(Approved.class, Confirmed.class, Denied.class,
 						Registered.class)
+				.addClass(LoggedIn.class)
 				.addPackage(LoginAction.class.getPackage())
 				.addAsResource("users.properties", "users.properties")
 				.addAsResource("roles.properties", "roles.properties")
@@ -176,6 +178,12 @@ public class JSFTest {
 		log.info("server.getFacesContext().getExternalContext().getUserPrincipal()@"
 				+ server.getFacesContext().getExternalContext()
 						.getUserPrincipal());
+		log.info("isUserInRoles:ROLE_VIEWER@"
+				+ server.getFacesContext().getExternalContext()
+						.isUserInRole("ROLE_VIEWER"));
+		log.info("isUserInRoles:ROLE_ADMINISTRATOR@"
+				+ server.getFacesContext().getExternalContext()
+						.isUserInRole("ROLE_ADMINISTRATOR"));
 
 		client.click("logoutForm:logoutButton");
 		Assert.assertEquals("/login.xhtml", server.getCurrentViewID());
@@ -199,9 +207,150 @@ public class JSFTest {
 		Assert.assertEquals("/ok.xhtml", server.getCurrentViewID());
 
 		Assert.assertTrue(!requestService.getAllUnconfirmedRequests().isEmpty());
-//		Assert.assertNotNull(server
-//				.getManagedBeanValue("unconfirmedRequests"));
+		// Assert.assertNotNull(server
+		// .getManagedBeanValue("unconfirmedRequests"));
 
+	}
+
+	@Test
+	@InitialPage("/login.jsf")
+	public void testSignupProgress(JSFServerSession server,
+			JSFClientSession client) throws IOException {
+		Assert.assertEquals("/login.xhtml", server.getCurrentViewID());
+
+		client.setValue("loginForm:username", "admin");
+		client.setValue("loginForm:password", "admin");
+		client.click("loginForm:loginButton");
+
+		Assert.assertEquals("/admin/unconfirmed.xhtml",
+				server.getCurrentViewID());
+		Assert.assertEquals("admin", server.getFacesContext()
+				.getExternalContext().getRemoteUser());
+		log.info("server.getFacesContext().getExternalContext().getUserPrincipal()@"
+				+ server.getFacesContext().getExternalContext()
+						.getUserPrincipal());
+		log.info("isUserInRoles@"
+				+ server.getFacesContext().getExternalContext()
+						.isUserInRole("ROLE_ADMINISTRATOR"));
+
+		// register
+		client.click("registerLink");
+		Assert.assertEquals("/register.xhtml", server.getCurrentViewID());
+		client.setValue("regForm:firstName:input", "hantsy");
+		client.setValue("regForm:lastName:input", "bai");
+		client.setValue("regForm:email:input", "hantsy@abc.com");
+		client.setValue("regForm:companyName:input", "Hantsy Labs");
+		client.setValue("regForm:comment:input", "No Comments");
+
+		client.click("regForm:registerButton");
+
+		Assert.assertEquals("/ok.xhtml", server.getCurrentViewID());
+
+		// unconfirmed
+		client.click("unconfirmedLink");
+		Assert.assertEquals("/admin/unconfirmed.xhtml",
+				server.getCurrentViewID());
+		client.click("form:dataTable:0:confirmButton");
+		Assert.assertEquals("/admin/unconfirmed.xhtml",
+				server.getCurrentViewID());
+
+		// confirmed
+		client.click("confirmedLink");
+		Assert.assertEquals("/admin/confirmed.xhtml", server.getCurrentViewID());
+		client.click("form:dataTable:0:approveButton");
+
+		// approved
+		client.click("approvedLink");
+		Assert.assertEquals("/admin/approved.xhtml", server.getCurrentViewID());
+		client.click("dataTable:0:viewLink");
+
+		Assert.assertEquals("/admin/requestDetail.xhtml",
+				server.getCurrentViewID());
+		Assert.assertTrue(client.getPageAsText().contains("hantsy"));
+
+		client.click("logoutForm:logoutButton");
+		Assert.assertEquals("/login.xhtml", server.getCurrentViewID());
+		Assert.assertNull(server.getFacesContext().getExternalContext()
+				.getRemoteUser());
+	}
+
+	/**
+	 * another different path.
+	 * 
+	 * @param server
+	 * @param client
+	 * @throws IOException
+	 */
+	@Test
+	@InitialPage("/login.jsf")
+	public void testSignupProgress2(JSFServerSession server,
+			JSFClientSession client) throws IOException {
+		Assert.assertEquals("/login.xhtml", server.getCurrentViewID());
+
+		client.setValue("loginForm:username", "admin");
+		client.setValue("loginForm:password", "admin");
+		client.click("loginForm:loginButton");
+
+		Assert.assertEquals("/admin/unconfirmed.xhtml",
+				server.getCurrentViewID());
+		Assert.assertEquals("admin", server.getFacesContext()
+				.getExternalContext().getRemoteUser());
+		log.info("server.getFacesContext().getExternalContext().getUserPrincipal()@"
+				+ server.getFacesContext().getExternalContext()
+						.getUserPrincipal());
+		log.info("isUserInRoles@"
+				+ server.getFacesContext().getExternalContext()
+						.isUserInRole("ROLE_ADMINISTRATOR"));
+
+		// register
+		client.click("registerLink");
+		Assert.assertEquals("/register.xhtml", server.getCurrentViewID());
+		client.setValue("regForm:firstName:input", "hantsy");
+		client.setValue("regForm:lastName:input", "bai");
+		client.setValue("regForm:email:input", "hantsy@abc.com");
+		client.setValue("regForm:companyName:input", "Hantsy Labs");
+		client.setValue("regForm:comment:input", "No Comments");
+
+		client.click("regForm:registerButton");
+
+		Assert.assertEquals("/ok.xhtml", server.getCurrentViewID());
+
+		// unconfirmed
+		client.click("unconfirmedLink");
+		Assert.assertEquals("/admin/unconfirmed.xhtml",
+				server.getCurrentViewID());
+		client.click("form:dataTable:0:confirmButton");
+		Assert.assertEquals("/admin/unconfirmed.xhtml",
+				server.getCurrentViewID());
+		// confirmed
+		client.click("confirmedLink");
+		Assert.assertEquals("/admin/confirmed.xhtml", server.getCurrentViewID());
+		client.click("form:dataTable:0:confirmDenialLink");
+
+		// confirmDenial
+		Assert.assertEquals("/admin/confirmDenial.xhtml",
+				server.getCurrentViewID());
+		client.setValue("confirmDenialForm:comment", "No Comments");
+		client.click("confirmDenialForm:denyButton");
+
+		// denied
+		client.click("deniedLink");
+		Assert.assertEquals("/admin/denied.xhtml", server.getCurrentViewID());
+		client.click("form:dataTable:0:approveButton");
+
+		// approved
+		client.click("approvedLink");
+		Assert.assertEquals("/admin/approved.xhtml", server.getCurrentViewID());
+		client.click("dataTable:0:viewLink");
+
+		Assert.assertEquals("/admin/requestDetail.xhtml",
+				server.getCurrentViewID());
+		Assert.assertTrue(client.getPageAsText().contains("No Comments"));
+
+		client.click("logoutForm:logoutButton");
+		Assert.assertEquals("/login.xhtml", server.getCurrentViewID());
+		Assert.assertNull(server.getFacesContext().getExternalContext()
+				.getRemoteUser());
 	}
 
 }

@@ -13,8 +13,8 @@
 			<em>No denied requests.</em>
 		</h:panelGroup>
 		<ui:fragment rendered="#{not empty deniedRequests}">
-			<h:form>
-				<h:dataTable var="obj" value="#{deniedRequests}"
+			<h:form id="form">
+				<h:dataTable id="dataTable" var="obj" value="#{deniedRequests}"
 					styleClass="zebra-striped">
 					<h:column>
 						<f:facet name="header">Name</f:facet>
@@ -38,13 +38,13 @@
 						<f:facet name="header">Action</f:facet>
 
 
-						<h:link outcome="/admin/requestDetail.xhtml" styleClass="btn"
+						<h:link id="viewLink" outcome="/admin/requestDetail.xhtml" styleClass="btn"
 							value="View">
 							<f:param name="id" value="#{obj.id}" />
 						</h:link>#{' '}
 				<ui:fragment
 							rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMINISTRATOR')}">
-							<h:commandButton action="#{requestHome.approveDenied(obj.id)}"
+							<h:commandButton id="approveButton" action="#{requestHome.approveDenied(obj.id)}"
 								value="Approve" styleClass="btn primary" />
 						</ui:fragment>
 					</h:column>

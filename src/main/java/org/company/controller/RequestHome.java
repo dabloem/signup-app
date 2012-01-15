@@ -39,21 +39,7 @@ public class RequestHome {
 		requestService.approveDenied(id);
 	}
 
-	public void onConfirmed(
-			@Observes(notifyObserver = Reception.IF_EXISTS) @Confirmed SignupRequest request) {
-		log.info("confirmed event was triggered.");
-		FacesUtil.info("Signup Request '" + request.getId()
-				+ "' was confirmed.");
-
-	}
-
-	public void onApproved(
-			@Observes(notifyObserver = Reception.IF_EXISTS) @Approved SignupRequest request) {
-		log.info("approved event was triggered.");
-		FacesUtil
-				.info("Signup Request '" + request.getId() + "' was approved.");
-
-	}
+	
 
 
 }

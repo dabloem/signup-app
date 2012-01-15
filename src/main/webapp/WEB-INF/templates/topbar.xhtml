@@ -13,19 +13,22 @@
 						<ul>
 							<li
 								class="#{request.servletPath.startsWith('/admin/unconfirmed')?'active':''}"><h:link
-									outcome="/admin/unconfirmed.xhtml" value="Unconfirmed" /></li>
+									id="unconfirmedLink" outcome="/admin/unconfirmed.xhtml"
+									value="Unconfirmed" /></li>
 							<li
 								class="#{request.servletPath.startsWith('/admin/confirmed')?'active':''}"><h:link
-									outcome="/admin/confirmed.xhtml" value="Confirmed" /></li>
+									id="confirmedLink" outcome="/admin/confirmed.xhtml"
+									value="Confirmed" /></li>
 							<li
 								class="#{request.servletPath.startsWith('/admin/approved')?'active':''}"><h:link
-									outcome="/admin/approved.xhtml" value="Approved" /></li>
+									id="approvedLink" outcome="/admin/approved.xhtml"
+									value="Approved" /></li>
 							<li
 								class="#{request.servletPath.startsWith('/admin/denied')?'active':''}"><h:link
-									outcome="/admin/denied.xhtml" value="Denied" /></li>
+									id="deniedLink" outcome="/admin/denied.xhtml" value="Denied" /></li>
 							<li
 								class="#{request.servletPath.startsWith('/register')?'active':''}"><h:link
-									outcome="/register.xhtml" value="Register" /></li>
+									id="registerLink" outcome="/register.xhtml" value="Register" /></li>
 						</ul>
 					</div>
 					<h:form id="logoutForm" class="pull-right">

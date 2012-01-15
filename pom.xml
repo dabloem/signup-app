@@ -29,12 +29,15 @@
 		<version.arquillian_core>1.0.0.CR6</version.arquillian_core>
 		<version.arquillian_drone>1.0.0.CR3</version.arquillian_drone>
 		<version.arquillian_ajocado>1.0.0.CR2</version.arquillian_ajocado>
+		<version.arquillian_container_openejb>1.0.0.CR2-SNAPSHOT</version.arquillian_container_openejb>
 		<version.jsfunit>2.0.0.Beta2</version.jsfunit>
 		<version.hamcrest>1.2</version.hamcrest>
 		<version.jboss_javaee6_spec>2.0.0.Final</version.jboss_javaee6_spec>
 		<version.jbossas_7>7.0.2.Final</version.jbossas_7>
+		<version.resteasy>2.0.1.GA</version.resteasy>
 		<version.log4j>1.2.14</version.log4j>
 		<version.slf4j>1.5.10</version.slf4j>
+		<version.openejb>3.1.4</version.openejb>
 	</properties>
 
 	<dependencyManagement>
@@ -139,6 +142,12 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
+				<groupId>org.jboss.arquillian.container</groupId>
+				<artifactId>arquillian-openejb-embedded-3.1</artifactId>
+				<version>${version.arquillian_container_openejb}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>${version.log4j}</version>
@@ -150,8 +159,20 @@
 				<version>${version.slf4j}</version>
 				<scope>test</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-jaxrs</artifactId>
+				<version>${version.resteasy}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.0.1</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 
 	<dependencies>
 		<!-- Infinispan dependency -->
@@ -293,6 +314,10 @@
 					<groupId>org.codehaus.jackson</groupId>
 					<artifactId>jackson-core-asl</artifactId>
 				</exclusion>
+				<exclusion>
+					<artifactId>httpclient</artifactId>
+					<groupId>org.apache.httpcomponents</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -304,6 +329,11 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
 		</dependency>
 
 		<!-- Needed for running tests (you may also use TestNG) -->
@@ -339,25 +369,57 @@
 		<dependency>
 			<groupId>org.jboss.shrinkwrap</groupId>
 			<artifactId>shrinkwrap-api</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.shrinkwrap.descriptors</groupId>
 			<artifactId>shrinkwrap-descriptors-impl</artifactId>
+			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.jboss.shrinkwrap.resolver</groupId>
 			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+			<scope>test</scope>
 		</dependency>
+		<!-- <dependency> <groupId>org.jboss.arquillian.extension</groupId> <artifactId>arquillian-drone-impl</artifactId> 
+			<scope>test</scope> </dependency> <dependency> <groupId>org.jboss.arquillian.extension</groupId> 
+			<artifactId>arquillian-drone-selenium</artifactId> <scope>test</scope> </dependency> 
+			<dependency> <groupId>org.jboss.arquillian.extension</groupId> <artifactId>arquillian-drone-selenium-server</artifactId> 
+			<scope>test</scope> </dependency> <dependency> <groupId>org.jboss.arquillian.extension</groupId> 
+			<artifactId>arquillian-drone-webdriver</artifactId> <scope>test</scope> </dependency> 
+			<dependency> <groupId>org.jboss.arquillian.ajocado</groupId> <artifactId>arquillian-ajocado-junit</artifactId> 
+			<type>pom</type> <scope>test</scope> </dependency> <dependency> <groupId>org.seleniumhq.selenium</groupId> 
+			<artifactId>selenium-remote-driver</artifactId> <scope>test</scope> </dependency> 
+			<dependency> <groupId>org.seleniumhq.selenium</groupId> <artifactId>selenium-server</artifactId> 
+			<scope>test</scope> </dependency> -->
 		<dependency>
-			<groupId>org.jboss.shrinkwrap.resolver</groupId>
-			<artifactId>shrinkwrap-resolver-api-maven</artifactId>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<scope>test</scope>
 		</dependency>
 
-        <dependency>
-            <groupId>org.jboss.jsfunit</groupId>
-            <artifactId>jsfunit-arquillian</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.jboss.jsfunit</groupId>
+			<artifactId>jsfunit-arquillian</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>httpclient</artifactId>
+					<groupId>org.apache.httpcomponents</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+		</dependency>
+
+		<dependency>
+			<artifactId>commons-httpclient</artifactId>
+			<groupId>commons-httpclient</groupId>
+			<version>3.1</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -392,6 +454,17 @@
 				<version>7.0.2.Final</version>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.11</version>
+					<configuration>
+						<skip>false</skip>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<profiles>
@@ -459,21 +532,86 @@
 					<artifactId>jboss-javaee-6.0</artifactId>
 					<type>pom</type>
 				</dependency>
+
 			</dependencies>
 			<build>
 				<plugins>
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.11</version>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>arq-openejb</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-openejb-embedded-3.1</artifactId>
+				</dependency>
+
+				<dependency>
+					<groupId>org.apache.openejb</groupId>
+					<artifactId>openejb-core</artifactId>
+					<version>${version.openejb}</version>
+					<scope>compile</scope> <!-- TODO: Hack until AS7-1559 is resolved -->
+				</dependency>
+				<!-- dependency>
+					<groupId>org.jboss.as</groupId>
+					<artifactId>jboss-as-spec-api</artifactId>
+					<type>pom</type>
+					<scope>compile</scope>
+				</dependency-->
+
+				<dependency>
+					<groupId>javax.inject</groupId>
+					<artifactId>javax.inject</artifactId>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>javax.enterprise</groupId>
+					<artifactId>cdi-api</artifactId>
+					<scope>compile</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>org.jboss.spec</groupId>
+					<artifactId>jboss-javaee-6.0</artifactId>
+					<type>pom</type>
+					<scope>test</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>org.infinispan</groupId>
+					<artifactId>infinispan-core</artifactId>
+					<version>${infinispan.version}</version>
+					<scope>compile</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>org.infinispan</groupId>
+					<artifactId>infinispan-cdi</artifactId>
+					<version>${infinispan.version}</version>
+					<scope>compile</scope>
+				</dependency>
+
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
-							<skip>false</skip>
+							<classpathDependencyExcludes>
+								<classpathDependencyExcludes>com.sun.faces:jsf-api</classpathDependencyExcludes>
+								<classpathDependencyExcludes>javax.validation:validation-api</classpathDependencyExcludes>
+								<classpathDependencyExcludes>org.hibernate.javax.persistence:hibernate-jpa-2.0-api</classpathDependencyExcludes>
+							</classpathDependencyExcludes>
 						</configuration>
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
-		<!-- <profile> <id>arq-openejb-embedded</id> <dependencies> </dependencies> 
-			</profile> -->
 
 	</profiles>
 

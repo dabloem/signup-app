@@ -34,7 +34,7 @@ public class RegisterAction implements Serializable {
 
 	private SignupRequest currentRequest;
 
-	public String register() throws Exception {
+	public String register(){
 		// log.info("Registering " + currentRequest.getName());
 		requestService.register(currentRequest);
 		

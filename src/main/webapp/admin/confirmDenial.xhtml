@@ -14,7 +14,7 @@
 		<h1>Confirm Denial</h1>
 	</ui:define>
 	<ui:define name="content">
-		<h:form>
+		<h:form id="confirmDenialForm">
 			<fieldset>
 				<div class="clearfix">
 					<div class="span3">
@@ -87,14 +87,14 @@
 							value="Comment" />
 					</div>
 					<div class="span6">
-						<h:inputTextarea value="#{denyAction.currentRequest.comment}"
+						<h:inputTextarea id="comment" value="#{denyAction.currentRequest.comment}"
 							rows="6" />
 					</div>
 				</div>
 				<div class="actions">
-					<h:commandButton id="deny" styleClass="btn danger"
+					<h:commandButton id="denyButton" styleClass="btn danger"
 						action="#{denyAction.deny}" value="Deny" />#{' '}
-					<h:commandButton id="cancel" styleClass="btn"
+					<h:commandButton id="cancelButton" styleClass="btn"
 						action="#{denyAction.cancel}" value="Cancel" />
 				</div>
 			</fieldset>

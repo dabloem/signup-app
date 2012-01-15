@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class SignupRequestServiceTest {
+public class CopyOfSignupRequestServiceTest {
 	private static final String WEBAPP_SRC = "src/main/webapp";
 	private static final String WEBINF_SRC = "src/main/webapp/WEB-INF";
 

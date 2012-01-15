@@ -7,15 +7,10 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+
 import org.company.model.SignupRequest;
 import org.company.service.SignupRequestService;
 
-/**
- * JAX-RS Example
- * 
- * This class produces a RESTful service to read the contents of the members
- * table.
- */
 @Path("/signup")
 @RequestScoped
 public class SignupRequestRestService {
@@ -30,7 +25,7 @@ public class SignupRequestRestService {
 	ServletContext servletContext;
 
 	@GET
-	@Produces("text/xml")
+	@Produces(MediaType.APPLICATION_XML)
 	@Path("/secured/unconfirmed")
 	public List<SignupRequest> listAllUnconfirmedRequsts() {
 		List<SignupRequest> results = signupRequestService
@@ -39,7 +34,7 @@ public class SignupRequestRestService {
 	}
 
 	@GET
-	@Produces("text/xml")
+	@Produces(MediaType.APPLICATION_XML)
 	@Path("/secured/confirmed")
 	public List<SignupRequest> listAllConfirmedRequsts() {
 		List<SignupRequest> results = signupRequestService
@@ -48,7 +43,7 @@ public class SignupRequestRestService {
 	}
 
 	@GET
-	@Produces("text/xml")
+	@Produces(MediaType.APPLICATION_XML)
 	@Path("/secured/approved")
 	public List<SignupRequest> listAllApprovedRequsts() {
 		List<SignupRequest> results = signupRequestService
@@ -57,7 +52,7 @@ public class SignupRequestRestService {
 	}
 
 	@GET
-	@Produces("text/xml")
+	@Produces(MediaType.APPLICATION_XML)
 	@Path("/secured/denied")
 	public List<SignupRequest> listAllDeniedRequsts() {
 		List<SignupRequest> results = signupRequestService
@@ -67,7 +62,7 @@ public class SignupRequestRestService {
 
 	@GET
 	@Path("/secured/{id:[\\w]{32}}")
-	@Produces("text/xml")
+	@Produces(MediaType.APPLICATION_XML)
 	public Response lookupById(@PathParam("id") String id) {
 		SignupRequest _request = null;
 		_request = signupRequestService.get(id);
@@ -106,6 +101,15 @@ public class SignupRequestRestService {
 	public Response approve(@PathParam("id") String id) {
 
 		signupRequestService.approve(id);
+
+		return Response.seeOther(redirectUri("/ok.jsf")).build();
+	}
+	
+	@GET
+	@Path("/secured/approveDenied/{id:[\\w]{32}}")
+	public Response approveDenied(@PathParam("id") String id) {
+
+		signupRequestService.approveDenied(id);
 
 		return Response.seeOther(redirectUri("/ok.jsf")).build();
 	}

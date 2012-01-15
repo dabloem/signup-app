@@ -12,8 +12,8 @@
 			<em>No unconfirmed requests.</em>
 		</h:panelGroup>
 		<ui:fragment rendered="#{not empty unconfirmedRequests}">
-			<h:form>
-				<h:dataTable var="obj" value="#{unconfirmedRequests}"
+			<h:form id="form">
+				<h:dataTable id="dataTable" var="obj" value="#{unconfirmedRequests}"
 					styleClass="zebra-striped">
 					<h:column>
 						<f:facet name="header">Name</f:facet>
@@ -39,13 +39,13 @@
 							<a href="#{request.contextPath}/rest/signup/#{obj.id}"> Rest
 								View</a>
 						</h:panelGroup> -->
-						<h:link outcome="/admin/requestDetail" value="View"
+						<h:link id="viewLink" outcome="/admin/requestDetail" value="View"
 							styleClass="btn">
 							<f:param name="id" value="#{obj.id}" />
 						</h:link>#{' '}
 						<ui:fragment
 							rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMINISTRATOR')}">
-							<h:commandButton action="#{requestHome.confirm(obj.id)}"
+							<h:commandButton id="confirmButton" action="#{requestHome.confirm(obj.id)}"
 								value="Confirm" styleClass="btn primary" />
 						</ui:fragment>
 					</h:column>
