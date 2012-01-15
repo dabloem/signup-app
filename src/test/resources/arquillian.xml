@@ -8,7 +8,7 @@
 	<engine>
 		<property name="deploymentExportPath">target/</property>
 	</engine>
-	<!-- defaultProtocol type="Servlet 3.0" /-->
+	<defaultProtocol type="Servlet 3.0" />
 
 	<container qualifier="jbossas-remote-7" default="true">
 		<configuration>
