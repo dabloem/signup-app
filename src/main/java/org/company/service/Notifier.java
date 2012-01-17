@@ -4,5 +4,5 @@ import org.company.model.SignupRequest;
 
 public interface Notifier {
 
-	public void notify(SignupRequest m);
+    public void notify(SignupRequest m);
 }

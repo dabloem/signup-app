@@ -1,5 +1,6 @@
 package org.company.model;
 
 public enum Status {
-	UNCONFIRMED, CONFIRMED, APPROVED, DENIED;
+
+    UNCONFIRMED, CONFIRMED, APPROVED, DENIED;
 }

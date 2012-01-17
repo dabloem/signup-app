@@ -1,28 +1,83 @@
 package org.company.service;
 
 import java.util.List;
-
 import org.company.model.SignupRequest;
 
+/**
+ * Confirm, approve, deny a Signup request.
+ *
+ * @author hantsy
+ */
 public interface SignupRequestService {
-	public abstract List<SignupRequest> getAllUnconfirmedRequests();
 
-	public abstract List<SignupRequest> getAllConfirmedRequests();
+    /**
+     * Fetch all unconfirmed requests.
+     *
+     * @return
+     */
+    public abstract List<SignupRequest> getAllUnconfirmedRequests();
 
-	public abstract List<SignupRequest> getAllApprovedRequests();
+    /**
+     * Fetch all confirmed requests.
+     *
+     * @return
+     */
+    public abstract List<SignupRequest> getAllConfirmedRequests();
 
-	public abstract List<SignupRequest> getAllDeniedRequests();
+    /**
+     * Fetch all approved requests.
+     *
+     * @return
+     */
+    public abstract List<SignupRequest> getAllApprovedRequests();
 
-	public abstract void register(SignupRequest m);
+    /**
+     * Fetch all denied requests.
+     *
+     * @return
+     */
+    public abstract List<SignupRequest> getAllDeniedRequests();
 
-	public abstract SignupRequest get(String id) ;
+    /**
+     * Register a Signup Request from client(web page or Rest web service), and save the request in unconfirmed cache.
+     *
+     * @return
+     */
+    public abstract void register(SignupRequest m);
 
-	public abstract void approve(String id) ;
+    /**
+     * Retrieve the detail of the Signup request.
+     *
+     * @param id id of the Signup request
+     * @return
+     */
+    public abstract SignupRequest get(String id);
 
-	public abstract void deny(String id) ;
+    /**
+     * Approve a confirmed Signup Request, remove it from the confirmed cache ,and save it into the approved cache.
+     *
+     * @param id id of the Signup Request
+     */
+    public abstract void approve(String id);
 
-	public abstract void confirm(String id) ;
+    /**
+     * Deny a confirmed Signup Request, remove it from the confirmed cache ,and save it into the denied cache.
+     *
+     * @param id id of the Signup Request
+     */
+    public abstract void deny(String id);
 
-	public abstract void approveDenied(String id);
+    /**
+     * Confirm a unconfirmed Signup Request, remove it from the unconfirmed cache ,and save it into the confirmed cache.
+     *
+     * @param id id of the Signup Request
+     */
+    public abstract void confirm(String id);
 
+    /**
+     * Approve a denied Signup Request, remove it from the denied cache ,and save it into the approved cache.
+     *
+     * @param id id of the Signup Request
+     */
+    public abstract void approveDenied(String id);
 }

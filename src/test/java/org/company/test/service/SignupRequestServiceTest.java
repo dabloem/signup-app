@@ -1,31 +1,4 @@
 package org.company.test.service;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.Date;
-import java.util.logging.Logger;
-
-import javax.inject.Inject;
-
-import org.company.context.SignupRequestListProducer;
-import org.company.context.qulifiers.ApprovedCache;
-import org.company.model.SignupRequest;
-import org.company.service.InfinispanSignupRequestService;
-import org.company.service.SignupRequestNotFoundException;
-import org.company.service.SignupRequestService;
-import org.company.service.events.Approved;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-//@RunWith(Arquillian.class)
 public class SignupRequestServiceTest {
 //	private static final String WEBAPP_SRC = "src/main/webapp";
 //	private static final String WEBINF_SRC = "src/main/webapp/WEB-INF";
@@ -221,5 +194,4 @@ public class SignupRequestServiceTest {
 ////		return (SignupRequestService) context
 ////				.lookup("InfinispanSignupRequestService");
 ////	}
-
 }

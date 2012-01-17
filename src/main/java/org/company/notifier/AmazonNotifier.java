@@ -28,17 +28,16 @@ public class AmazonNotifier implements Notifier {
 
     private final String ENDPOINT = "https://sns.eu-west-1.amazonaws.com";
     private final String AWS_PROPERTIES = "/aws.properties";
-    
     @Inject
     private SignupPublishRequest publishRequest;
-    
+
     @Override
     public void notify(@Observes @Registered SignupRequest signupRequest) {
         try {
             AWSCredentials credentials = new PropertiesCredentials(AmazonNotifier.class.getResourceAsStream(AWS_PROPERTIES));
             AmazonSNS amazonSNS = new AmazonSNSClient(credentials);
             amazonSNS.setEndpoint(ENDPOINT);
-            
+
             publishRequest.setSignupRequest(signupRequest);
             amazonSNS.publish(publishRequest);
         } catch (AmazonClientException ex) {
@@ -48,5 +47,4 @@ public class AmazonNotifier implements Notifier {
             Logger.getLogger(AmazonNotifier.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

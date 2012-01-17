@@ -2,121 +2,112 @@ package org.company.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class SignupRequest implements Serializable {
-	/** Default value included to remove warning. Remove or modify at will. **/
-	private static final long serialVersionUID = 1L;
 
-	public static final String ATTR_EMAIL = "email";
-	public static final String ATTR_FIRSTNAME = "firstName";
-	public static final String ATTR_LASTNAME = "lastName";
-	public static final String ATTR_HTTP_REFERER = "httpRefer";
-	public static final String ATTR_COMMENT = "comment";
-	public static final String ATTR_COMPANY_NAME = "companyName";
+    /**
+     * Default value included to remove warning. Remove or modify at will. *
+     */
+    private static final long serialVersionUID = 1L;
+    public static final String ATTR_EMAIL = "email";
+    public static final String ATTR_FIRSTNAME = "firstName";
+    public static final String ATTR_LASTNAME = "lastName";
+    public static final String ATTR_HTTP_REFERER = "httpRefer";
+    public static final String ATTR_COMMENT = "comment";
+    public static final String ATTR_COMPANY_NAME = "companyName";
+    private String id;
+    private String email;
+    private String companyName;
+    private String httpRefer;
+    private String firstName;
+    private String lastName;
+    private String comment;
+    private Date createdOn;
+    private Status status;
 
-	private String id;
+    public String getId() {
+        return id;
+    }
 
-	private String email;
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	private String companyName;
+    public String getEmail() {
+        return email;
+    }
 
-	private String httpRefer;
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	private String firstName;
+    public String getCompanyName() {
+        return companyName;
+    }
 
-	private String lastName;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
-	private String comment;
+    public String getHttpRefer() {
+        return httpRefer;
+    }
 
-	private Date createdOn;
+    public void setHttpRefer(String httpRefer) {
+        this.httpRefer = httpRefer;
+    }
 
-	private Status status;
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getComment() {
+        return comment;
+    }
 
-	public String getCompanyName() {
-		return companyName;
-	}
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
+    public Date getCreatedOn() {
+        return createdOn;
+    }
 
-	public String getHttpRefer() {
-		return httpRefer;
-	}
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
 
-	public void setHttpRefer(String httpRefer) {
-		this.httpRefer = httpRefer;
-	}
+    public Status getStatus() {
+        return status;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getName() {
+        return (this.getFirstName() == null ? "" : this.getFirstName())
+                + (this.getLastName() == null ? "" : this.getLastName());
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public String getName() {
-		return (this.getFirstName() == null ? "" : this.getFirstName())
-				+ (this.getLastName() == null ? "" : this.getLastName());
-	}
-
-	@Override
-	public String toString() {
-		return "SignupRequest{" + "email=" + email + ", companyName="
-				+ companyName + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", status=" + status +", createdOn=" + createdOn +'}';
-	}
-
+    @Override
+    public String toString() {
+        return "SignupRequest{" + "email=" + email + ", companyName="
+                + companyName + ", firstName=" + firstName + ", lastName="
+                + lastName + ", status=" + status + ", createdOn=" + createdOn + '}';
+    }
 }

@@ -6,9 +6,8 @@ import org.junit.Test;
 
 public class PredicateTest {
 
-	@Test(expected=SignupRequestNotFoundException.class)
-	public void testNonNull() {
-		Predicate.nonNull(null);
-	}
-
+    @Test(expected = SignupRequestNotFoundException.class)
+    public void testNonNull() {
+        Predicate.nonNull(null);
+    }
 }
