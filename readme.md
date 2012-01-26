@@ -80,7 +80,7 @@ There are several approaches for storing the autentication info, UsersRoles used
 
 	1. Create a security domain in JBoss configuration file(*${JBOSS_HOME}/standlone/configuration/standalone.xml*).
 		
-          Find *<subsystem xmlns="urn:jboss:domain:security:1.0">* tag, change 'other' security-domain to the following configuration.
+          Find *&lt;subsystem xmlns="urn:jboss:domain:security:1.0">* tag, change 'other' security-domain to the following configuration.
 
                <security-domains>
 	                <security-domain name="other">
