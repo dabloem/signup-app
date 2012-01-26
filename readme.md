@@ -16,13 +16,13 @@ Those requests are approved or denied by the administrator
 
 1. Oracle JDK 6
 
-  Download the latest JDK 6 from [Oralce](http://www.oracle.com). Install it into your system, set the *JAVA_HOME* variable and add *JAVA_HOME/bin* to path.
+    Download the latest JDK 6 from [Oralce](http://www.oracle.com). Install it into your system, set the *JAVA_HOME* variable and add *JAVA_HOME/bin* to path.
 
 2. Apache Maven 3.0.x
 
- Download the Apache Maven from [Apache.org](http://www.apache.org). Extract the files to your local disk, set the *M2_HOME* variable and add *M2_HOME/bin* to path.
+    Download the Apache Maven from [Apache.org](http://www.apache.org). Extract the files to your local disk, set the *M2_HOME* variable and add *M2_HOME/bin* to path.
 
- Open your terminal, type **mvn -version** and press ENTER, you should see the following similar information.
+    Open your terminal, type **mvn -version** and press ENTER, you should see the following similar information.
         
         Apache Maven 3.0.4 (r1232337; 2012-01-17 16:44:56+0800)
         Maven home: D:\build\maven
@@ -34,23 +34,23 @@ Those requests are approved or denied by the administrator
 
 3. Eclipse 3.7 and JBoss Tools
 
-	Download eclipse JEE bundle from [Eclipse.org](http://www.eclipse.org), and extract zip into your local disk. Start up Eclipse and follow these step to install JBoss Tools.
+    Download eclipse JEE bundle from [Eclipse.org](http://www.eclipse.org), and extract zip into your local disk. Start up Eclipse and follow these step to install JBoss Tools.
 
- 1. Open EclipseMarket Dialog.
- 2. Input "Jboss" in the search field.
- 3. Click the "Install" to install JBoss Tools.
- 4. Restart Eclipse according to the installation prompt.
+    1. Open EclipseMarket Dialog.
+    2. Input "Jboss" in the search field.
+    3. Click the "Install" to install JBoss Tools.
+    4. Restart Eclipse according to the installation prompt.
 
 
 4. (Optional) NetBeans 7.1
 
- If you select NetBeans as your preferred IDE, you can download the latest NetBeans IDE from [NetBeans.org](http://www.netbeans.org), the Java EE version is recommended. The installation progress is very simple, just click the next button following the the installing wizard.
+    If you select NetBeans as your preferred IDE, you can download the latest NetBeans IDE from [NetBeans.org](http://www.netbeans.org), the Java EE version is recommended. The installation progress is very simple, just click the next button following the the installing wizard.
   	
 5. JBoss 7.0.2 Final
   
- Download the latest JBoss 7.0.2.Final from [JBoss.org](http://www.jboss.org), and extract the files into your local disk. You can set JBOSS_HOME variable, the location is the JBoss folder.
+    Download the latest JBoss 7.0.2.Final from [JBoss.org](http://www.jboss.org), and extract the files into your local disk. You can set JBOSS_HOME variable, the location is the JBoss folder.
 
- You can register the JBoss server in your IDE. Eclipse user can open the "Server" view, right click the white space in the view, select "New ..." in the context menu, and follows the steps to create a JBoss server instance. If You are using NetBeans, click "Service" window, right click the white space and select "New", follow the wizard to register a JBoss server. 
+    You can register the JBoss server in your IDE. Eclipse user can open the "Server" view, right click the white space in the view, select "New ..." in the context menu, and follows the steps to create a JBoss server instance. If You are using NetBeans, click "Service" window, right click the white space and select "New", follow the wizard to register a JBoss server. 
 
 
 ## Project Setup 
