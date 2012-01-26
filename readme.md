@@ -22,7 +22,7 @@ Those requests are approved or denied by the administrator
 
     Download the Apache Maven from [Apache.org](http://www.apache.org). Extract the files to your local disk, set the *M2_HOME* variable and add *M2_HOME/bin* to path.
 
-    Open your terminal, type **mvn -version** and press ENTER, you should see the following similar information.
+    Open your terminal, type `mvn -version` and press ENTER, you should see the following similar information.
         
         Apache Maven 3.0.4 (r1232337; 2012-01-17 16:44:56+0800)
         Maven home: D:\build\maven
@@ -205,7 +205,7 @@ There are several approaches for storing the autentication info, UsersRoles used
 
  2. Deploy from command line.
  
-      The pom.xml included a JBoss As maven plugin configuration, open command console and switch to path of the project root folder. run **mvn clean package jboss-as:deploy** in the command window, it will clean the project folder, compile and package a fresh war archive and deploy it into the runing JBoss AS.
+      The pom.xml included a JBoss As maven plugin configuration, open command console and switch to path of the project root folder. run `mvn clean package jboss-as:deploy` in the command window, it will clean the project folder, compile and package a fresh war archive and deploy it into the runing JBoss AS.
 
 
 
