@@ -59,9 +59,9 @@ Those requests are approved or denied by the administrator
 
   If you have installed the JBoss tools, the M2eclipse(maven for eclipse plugin) should be installed. Follow these steps to import the exising codes into your Eclipse workspace.
  
-  * Click *"File"-> "Import"* from Eclipse main menu, open the import dialog.
-  * Select "Existing Maven project" under the maven node.
-  * Select the location of the project root folder.
+  1. Click *"File"-> "Import"* from Eclipse main menu, open the import dialog.
+  2. Select "Existing Maven project" under the maven node.
+  3. Select the location of the project root folder.
 
   If you are the first time to use Maven in your system, it will resolve and download the missing dependencies of this project. This maybe take several minutes, please keep patience.
 
@@ -74,9 +74,11 @@ There are two roles in the application, *ROLE_AMINISTRATOR* can approve and deny
 The */admin* path is protected by default, use *BASIC* based authentication, please refer the configuration in *web.xml*
 file under the *WEB-INF* folder.
 
-1. Configuration using UsersRoles login-module code.
+There are several approaches for storing the autentication info, UsersRoles used properties file and Database used database, others you can refer the JBoss AS documentation.
 
-	* Create a security domain in JBoss configuration file(*${JBOSS_HOME}/standlone/configuration/standalone.xml*).
+* Configuration using UsersRoles login-module code.
+
+	1. Create a security domain in JBoss configuration file(*${JBOSS_HOME}/standlone/configuration/standalone.xml*).
 		
           Find *<subsystem xmlns="urn:jboss:domain:security:1.0">* tag, change 'other' security-domain to the following configuration.
 
@@ -94,7 +96,7 @@ file under the *WEB-INF* folder.
 	
          Create users.properties and roles.properties in the project src/main/resources, when the project is packaged, they will be included in the classpath.
 		
-	* Specify the security domain in *jboss-web.xml*.
+	2. Specify the security domain in *jboss-web.xml*.
 	
 	 `	<security-domain>other</security-domain>`
 	
@@ -102,7 +104,7 @@ file under the *WEB-INF* folder.
 	
 	  [http://community.jboss.org/message/643007#643007](http://community.jboss.org/message/643007#643007)
 	
-2. Configuration using Database login-module code.
+* Configuration using Database login-module code.
 
 
 	
