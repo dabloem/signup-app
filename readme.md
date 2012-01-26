@@ -69,6 +69,11 @@ Those requests are approved or denied by the administrator
 
 ### Configuration for JAAS security.
 
+There are two roles in the application, *ROLE_AMINISTRATOR* can approve and deny signup request, *ROLE_VIEWER* can view the pages.
+	
+The */admin* path is protected by default, use *BASIC* based authentication, please refer the configuration in *web.xml*
+file under the *WEB-INF* folder.
+
 1. Configuration using UsersRoles login-module code.
 
 	* Create a security domain in JBoss configuration file(*${JBOSS_HOME}/standlone/configuration/standalone.xml*).
@@ -99,12 +104,9 @@ Those requests are approved or denied by the administrator
 	
 2. Configuration using Database login-module code.
 
-	There are two roles in the application, *ROLE_AMINISTRATOR* can approve and deny signup request, *ROLE_VIEWER* can view the pages.
+
 	
-	The */admin* path is protected by default, use *BASIC* based authentication, please refer the configuration in *web.xml*
-file under the *WEB-INF* folder.
-	
-	The User/Roles related data are stored in the database, this can be configured in the JBoss AS easily. Follow the following steps to configuration.
+	The User/Roles related data are stored in the database, this can be configured in the JBoss AS easily. Follow the following steps to configure.
 	
 	1. Create database *signup*(I used mysql), and grant all privileges to *signupuser/signuppass* .
 	2. Create a datasource in *${JBOSS_HOME}/standlone/configuration/standalone.xml* .
