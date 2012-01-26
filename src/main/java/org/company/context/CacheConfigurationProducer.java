@@ -7,9 +7,9 @@ import org.company.context.qulifiers.ConfirmedCache;
 import org.company.context.qulifiers.DeniedCache;
 import org.company.context.qulifiers.UnconfirmedCache;
 import org.infinispan.cdi.ConfigureCache;
-import org.infinispan.config.Configuration;
+import org.infinispan.configuration.cache.Configuration;
+import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.eviction.EvictionStrategy;
-import org.infinispan.loaders.file.FileCacheStoreConfig;
 
 /**
  * Produce cache configurations for different purpose.
@@ -48,39 +48,92 @@ public class CacheConfigurationProducer {
     @ConfigureCache("signup-unconfirmed-cache")
     @UnconfirmedCache
     @Produces
-    @ApplicationScoped
+   // @ApplicationScoped
     public Configuration unconfirmedCacheConfiguration() {
-        return new Configuration().fluent().eviction().strategy(EvictionStrategy.FIFO).maxEntries(10).expiration().lifespan(24L * 60 * 60 * 1000).loaders().shared(false).preload(true).passivation(false).addCacheLoader(
-                new FileCacheStoreConfig().location("signup-unconfirmed-cache").fetchPersistentState(true).purgeOnStartup(false).ignoreModifications(false)).build();
+        return new ConfigurationBuilder()
+                .eviction()
+                    .strategy(EvictionStrategy.LRU)
+                    .maxEntries(10)
+                .expiration()
+                    .lifespan(24L * 60 * 60 * 1000)
+                .loaders()
+                    .shared(false)
+                    .preload(true)
+                    .passivation(false)
+                .addFileCacheStore()
+                     .location("signup-unconfirmed-cache")
+                     .fetchPersistentState(true)
+                     .purgeOnStartup(false)
+                     .ignoreModifications(false)
+                .build();
     }
 
     @ConfigureCache("signup-confirmed-cache")
     @ConfirmedCache
     @Produces
-    @ApplicationScoped
+    //@ApplicationScoped
     public Configuration confirmedCacheConfiguration() {
-        return new Configuration().fluent().eviction().strategy(EvictionStrategy.FIFO).maxEntries(10).expiration().lifespan(24L * 60 * 60 * 1000).loaders().shared(false).preload(true).passivation(false).addCacheLoader(
-                new FileCacheStoreConfig().location("signup-confirmed-cache").fetchPersistentState(true).purgeOnStartup(false).ignoreModifications(false)).build();
-
+    	return new ConfigurationBuilder()
+                .eviction()
+                    .strategy(EvictionStrategy.LRU)
+                    .maxEntries(10)
+                .expiration()
+                    .lifespan(24L * 60 * 60 * 1000)
+                .loaders()
+                    .shared(false)
+                    .preload(true)
+                    .passivation(false)
+                .addFileCacheStore()
+                     .location("signup-confirmed-cache")
+                     .fetchPersistentState(true)
+                     .purgeOnStartup(false)
+                     .ignoreModifications(false)
+                .build();
     }
 
     @ConfigureCache("signup-approved-cache")
     @ApprovedCache
     @Produces
-    @ApplicationScoped
+    //@ApplicationScoped
     public Configuration approvedCacheConfiguration() {
-        return new Configuration().fluent().eviction().strategy(EvictionStrategy.FIFO).maxEntries(10).expiration().lifespan(24L * 60 * 60 * 1000).loaders().shared(false).preload(true).passivation(false).addCacheLoader(
-                new FileCacheStoreConfig().location("signup-approved-cache").fetchPersistentState(true).purgeOnStartup(false).ignoreModifications(false)).build();
-
+    	return new ConfigurationBuilder()
+                .eviction()
+                    .strategy(EvictionStrategy.LRU)
+                    .maxEntries(10)
+                .expiration()
+                    .lifespan(24L * 60 * 60 * 1000)
+                .loaders()
+                    .shared(false)
+                    .preload(true)
+                    .passivation(false)
+                .addFileCacheStore()
+                     .location("signup-approved-cache")
+                     .fetchPersistentState(true)
+                     .purgeOnStartup(false)
+                     .ignoreModifications(false)
+                .build();
     }
 
     @ConfigureCache("signup-denied-cache")
     @DeniedCache
     @Produces
-    @ApplicationScoped
+   // @ApplicationScoped
     public Configuration deniedCacheConfiguration() {
-        return new Configuration().fluent().eviction().strategy(EvictionStrategy.FIFO).maxEntries(10).expiration().lifespan(24L * 60 * 60 * 1000).loaders().shared(false).preload(true).passivation(false).addCacheLoader(
-                new FileCacheStoreConfig().location("signup-denied-cache").fetchPersistentState(true).purgeOnStartup(false).ignoreModifications(false)).build();
-
+    	return new ConfigurationBuilder()
+                .eviction()
+                    .strategy(EvictionStrategy.LRU)
+                    .maxEntries(10)
+                .expiration()
+                    .lifespan(24L * 60 * 60 * 1000)
+                .loaders()
+                    .shared(false)
+                    .preload(true)
+                    .passivation(false)
+                .addFileCacheStore()
+                     .location("signup-denied-cache")
+                     .fetchPersistentState(true)
+                     .purgeOnStartup(false)
+                     .ignoreModifications(false)
+                .build();
     }
 }
