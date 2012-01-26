@@ -178,13 +178,13 @@ file under the *WEB-INF* folder.
 	  
       All the configuration here is for JBoss 7 AS, Glassfish provide more friendly administration console.         
 
-3. Upgrade the weld runtime in JBoss AS.
+### Upgrade the weld runtime in JBoss AS.
 
    **This is a must for the latest Inifinispan 5.1.0.FINAL**.
 
    Download the latest weld distribution archive from [Seamframework.org](http://www.seamframework.org), and unzip the archive into your local disk. Copy the *artifacts/weld/weld-core.jar* from the uncompressed folder to the JBoss modules folder *modules/org/jboss/weld/core/main*, rename it to *weld-core.1.1.5.Final.jar* , edit the *module.xml* file in the same folder and find the weld version, and update to the latest version.  	
 
-4. Run Project 
+### Run Project 
  
  You can deploy the application into JBoss AS from IDE or command line.
 
