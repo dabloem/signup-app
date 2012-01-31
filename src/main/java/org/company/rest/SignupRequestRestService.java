@@ -103,7 +103,7 @@ public class SignupRequestRestService {
     @POST
     @Path("/register")
     @Consumes("application/x-www-form-urlencoded")
-    public Response register(MultivaluedMap<String, String> formParams, @HeaderParam("Referer") String referer) {
+    public Response register(MultivaluedMap<String, String> formParams, @HeaderParam(SignupRequest.ATTR_HTTP_REFERER) String referer) {
         SignupRequest _request = new SignupRequest();
         _request.setFirstName(formParams.getFirst(SignupRequest.ATTR_FIRSTNAME));
         _request.setLastName(formParams.getFirst(SignupRequest.ATTR_LASTNAME));
@@ -187,9 +187,5 @@ public class SignupRequestRestService {
                 + (port == 80 ? "" : ":" + String.valueOf(port))
                 + servletContext.getContextPath()).path(path).build();
     }
-    // private Response translateSignupRequestNotFoundExceptionToResponse(
-    // SignupRequestNotFoundException ex) {
-    // return Response.status(404).entity(ex.getMessage()).type("text/plain")
-    // .build();
-    // }
+
 }

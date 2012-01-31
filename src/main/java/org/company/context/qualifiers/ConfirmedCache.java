@@ -1,4 +1,4 @@
-package org.company.context.qulifiers;
+package org.company.context.qualifiers;
 
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.*;

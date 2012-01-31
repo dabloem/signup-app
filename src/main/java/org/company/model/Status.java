@@ -1,25 +1,10 @@
 package org.company.model;
 
 /**
- * Sign request process status.
- *
+ * Signup reqeust status definition.
  * @author hantsy
+ *
  */
 public enum Status {
-    /*
-     * Unconfirmed status.
-     */
-    UNCONFIRMED,
-    /*
-     * Confirmed status
-     */
-    CONFIRMED,
-    /*
-     * Approved status.
-     */
-    APPROVED,
-    /*
-     * Denied status
-     */
-    DENIED;
+	UNCONFIRMED, CONFIRMED, APPROVED, DENIED;
 }

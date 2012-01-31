@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The object to wrap the Signup Reqeust.
+ * @author hantsy
+ *
+ */
 @XmlRootElement
 public class SignupRequest implements Serializable {
 
@@ -14,7 +19,7 @@ public class SignupRequest implements Serializable {
 	public static final String ATTR_EMAIL = "email";
 	public static final String ATTR_FIRSTNAME = "firstName";
 	public static final String ATTR_LASTNAME = "lastName";
-	public static final String ATTR_HTTP_REFERER = "httpRefer";
+	public static final String ATTR_HTTP_REFERER = "Referer";
 	public static final String ATTR_COMMENT = "comment";
 	public static final String ATTR_COMPANY_NAME = "companyName";
 	private String id;

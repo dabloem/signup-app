@@ -9,10 +9,11 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import org.company.context.qulifiers.ApprovedCache;
-import org.company.context.qulifiers.ConfirmedCache;
-import org.company.context.qulifiers.DeniedCache;
-import org.company.context.qulifiers.UnconfirmedCache;
+
+import org.company.context.qualifiers.ApprovedCache;
+import org.company.context.qualifiers.ConfirmedCache;
+import org.company.context.qualifiers.DeniedCache;
+import org.company.context.qualifiers.UnconfirmedCache;
 import org.company.model.SignupRequest;
 import org.company.model.Status;
 import org.company.service.events.Approved;
