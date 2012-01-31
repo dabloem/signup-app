@@ -22,6 +22,10 @@ import org.company.service.events.Registered;
 import org.infinispan.Cache;
 import org.jboss.ejb3.annotation.SecurityDomain;
 
+/**
+ * Default implementation of {@link SignupRequestService}.
+ * @author hantsy
+ */
 @SecurityDomain(value = "other")
 @Stateless
 //@DeclareRoles({"ROLE_ADMINISTRATOR","ROLE_VIEWER"})

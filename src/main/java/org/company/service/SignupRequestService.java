@@ -4,8 +4,28 @@ import java.util.List;
 import org.company.model.SignupRequest;
 
 /**
- * Confirm, approve, deny a Signup request.
+ * <p>
+ * The service interface to process signup request. 
+ * </p>
+ * <p>
+ * There are two roles in this application, admin and viewer(the role symbols are ROLE_ADMINISTRATOR and ROLE_VIEWER).
+ * Admin can confirm, approve or deny a sign request. An viewer can only view the request info.
+ * </p>
+ * <ol> 
+ * <li>When a new signup request is sent the server side, the
+ * service will store it in the unconfirmed cache, and notify Admin to confirm this request.</li> 
+ * <li>Admin can confirm a unconfirmed request in the admin console, the service will move the request from unconfirmed cache to the
+ * confirmed cache.</li> 
+ * <li>Admin can approve or deny a confirmed request, the service will move the request to the
+ * status specified cache.</li> 
+ * <li>Admin can approve a denied request, the service will move the request to the
+ * approved cache.</li>
+ *  </ol>
  *
+ * <p>
+ * When an action is performed, an related event should be fired, thus other service can be notified.
+ * For example, the web interface can observes the events and display a message in page.
+ * </p>
  * @author hantsy
  */
 public interface SignupRequestService {

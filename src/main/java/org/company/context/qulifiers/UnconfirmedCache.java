@@ -7,6 +7,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 import javax.inject.Qualifier;
 
+/**
+ * Unconfirmed cache qualifier.
+ *
+ * @author hantsy
+ */
 @Qualifier
 @Target({TYPE, METHOD, PARAMETER, FIELD})
 @Retention(RUNTIME)

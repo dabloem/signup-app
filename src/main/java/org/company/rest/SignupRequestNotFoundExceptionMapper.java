@@ -6,7 +6,8 @@ import javax.ws.rs.ext.Provider;
 import org.company.service.SignupRequestNotFoundException;
 
 /**
- * Handle the SignupRequestNotFoundException exception, if encountered a SignupRequestNotFoundException, return 404
+ * Handle the {@link SignupRequestNotFoundException} in rest interface.
+ * If encountered a SignupRequestNotFoundException, return 404
  * response code to the client.
  *
  * @author hantsy

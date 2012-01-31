@@ -17,6 +17,14 @@ import org.jboss.solder.servlet.WebRequest;
 @HandlesExceptions
 public class DefaultExceptionHandler {
 
+    /**
+     * Process the {@link  SingupRequestNotFoundException} in web interface.
+     * Send 404 error to the client when SingupRequestNotFoundException was thrown.
+     * 
+     * @param event Exception event should be fired when the SingupRequestNotFoundException is thrown.
+     * @param response HttpServletResponse instance.
+     * @param log Logger instance.
+     */
     public void handleSignupRequestNotFoundException(
             @Handles @WebRequest CaughtException<SignupRequestNotFoundException> event, HttpServletResponse response,
             Logger log) {
