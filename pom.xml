@@ -140,12 +140,7 @@
                 <version>${version.jbossas_7}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.container</groupId>
-                <artifactId>arquillian-openejb-embedded-3.1</artifactId>
-                <version>${version.arquillian_container_openejb}</version>
-                <scope>test</scope>
-            </dependency>
+
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
