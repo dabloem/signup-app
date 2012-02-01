@@ -6,5 +6,20 @@ package org.company.model;
  *
  */
 public enum Status {
-	UNCONFIRMED, CONFIRMED, APPROVED, DENIED;
+	/**
+	 * unconfirmed status.
+	 */
+	UNCONFIRMED, 
+	/**
+	 * confirmed status.
+	 */
+	CONFIRMED, 
+	/**
+	 * approved status.
+	 */
+	APPROVED, 
+	/**
+	 * denied status.
+	 */
+	DENIED;
 }

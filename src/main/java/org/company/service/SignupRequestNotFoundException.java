@@ -3,7 +3,7 @@ package org.company.service;
 /**
  * If the Signup Request is not found in the caches, a SingupRequestNotFoundException will be thrown.
  *
- * Different clients should have their solution for handling this exception.
+ * Different interface should have their solution for handling this exception.
  *
  * @author hantsy
  */

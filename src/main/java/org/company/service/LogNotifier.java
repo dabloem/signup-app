@@ -7,7 +7,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.company.model.SignupRequest;
 import org.company.service.events.Registered;
-
+/**
+ * The dummy implementation of the {@link Notifier}.
+ * 
+ * @author hantsy
+ */
 @Named
 public class LogNotifier implements Notifier {
 
