@@ -38,8 +38,8 @@ import org.company.service.events.Registered;
  * </p>
  * <ol> 
  * <li>The requester send a signup request from client form based page and submit via Rest API, 
- * the service will store it in the unconfirmed cache, and notify the requester/agent to confirm this request.</li> 
- * <li>The requester/agent can confirm the request via http url(in a email message or other place). 
+ * the service will store it in the unconfirmed cache, and notify the agent(defined as {@link  Notifier}, who is able to inform the requestor for confirmation).</li> 
+ * <li>When the requester received the confirmation, he can confirm the request via http url(in a email message or other place). 
  * When the request is confirmed, the service will move the request from unconfirmed cache to the confirmed cache.</li> 
  * <li>The administrator can approve or deny a confirmed request in the administration console, the service will move the request to the
  * status specified cache.</li> 
