@@ -23,7 +23,7 @@
 		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
 		<!-- Specify the JBoss AS directory to be the JBOSS_HOME environment variable -->
 		<jboss.home>${env.JBOSS_HOME}</jboss.home>
-		<infinispan.version>5.1.0.FINAL</infinispan.version>
+		<infinispan.version>5.1.1.FINAL</infinispan.version>
 		<junit.version>4.8.2</junit.version>
 		<mockito.version>1.8.5</mockito.version>
 		<version.arquillian_core>1.0.0.CR6</version.arquillian_core>
@@ -135,13 +135,6 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.jboss.as</groupId>
-				<artifactId>jboss-as-arquillian-container-managed</artifactId>
-				<version>${version.jbossas_7}</version>
-				<scope>test</scope>
-			</dependency>
-
-			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-simple</artifactId>
 				<version>${version.slf4j}</version>
@@ -152,11 +145,6 @@
 				<artifactId>resteasy-jaxrs</artifactId>
 				<version>${version.resteasy}</version>
 				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.httpcomponents</groupId>
-				<artifactId>httpclient</artifactId>
-				<version>4.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.solder</groupId>
@@ -174,14 +162,13 @@
 			<artifactId>infinispan-core</artifactId>
 			<version>${infinispan.version}</version>
 		</dependency>
-
-
+		
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-cdi</artifactId>
 			<version>${infinispan.version}</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.jboss.solder</groupId>
 			<artifactId>solder-impl</artifactId>
@@ -229,7 +216,6 @@
 		<dependency>
 			<groupId>org.jboss.spec.javax.ws.rs</groupId>
 			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
-			<version>1.0.0.Final</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -330,6 +316,8 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
+			<version>4.1.1</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Needed for running tests (you may also use TestNG) -->
@@ -394,6 +382,7 @@
 					<groupId>org.apache.httpcomponents</groupId>
 				</exclusion>
 			</exclusions>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -476,25 +465,6 @@
 			</build>
 		</profile>
 
-		<profile>
-			<!-- An optional Arquillian testing profile that executes tests in your 
-				JBoss AS instance -->
-			<!-- This profile will start a new JBoss AS instance, and execute the 
-				test, shutting it down when done -->
-			<!-- Run with: mvn clean test -Parq-jbossas-managed-7 -->
-			<id>arq-jbossas-managed-7</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.as</groupId>
-					<artifactId>jboss-as-arquillian-container-managed</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.spec</groupId>
-					<artifactId>jboss-javaee-6.0</artifactId>
-					<type>pom</type>
-				</dependency>
-			</dependencies>
-		</profile>
 
 		<profile>
 			<!-- We add the JBoss repository as we need the JBoss AS connectors for 
