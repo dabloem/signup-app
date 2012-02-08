@@ -46,6 +46,7 @@ public class JSFTest {
 
 	private static final String WEBAPP_SRC = "src/main/webapp";
 	private static final String WEBINF_SRC = "src/main/webapp/WEB-INF";
+	private static final String WEBINF_SRC_JB7 = "src/main/resources-jbossas7/WEB-INF";
 
 	@Deployment
 	public static WebArchive createTestArchive() {
@@ -133,7 +134,8 @@ public class JSFTest {
 						new File(WEBINF_SRC, "templates/topbar.xhtml"),
 						"templates/topbar.xhtml")
 				.addAsWebInfResource(new File(WEBINF_SRC, "faces-config.xml"))
-				.addAsWebInfResource(new File(WEBINF_SRC, "jboss-web.xml"))
+				.addAsWebInfResource(new File(WEBINF_SRC_JB7, "jboss-web.xml"))
+				.addAsWebInfResource(new File(WEBINF_SRC_JB7, "jboss-deployment-structure.xml"))
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				.setWebXML(new File(WEBINF_SRC, "web.xml"));
 		System.out.println(jar.toString());

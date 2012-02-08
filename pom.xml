@@ -161,14 +161,37 @@
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-core</artifactId>
 			<version>${infinispan.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jboss-transaction-api</artifactId>
+					<groupId>org.jboss.javaee</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jboss-logging</artifactId>
+					<groupId>org.jboss.logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-cdi</artifactId>
 			<version>${infinispan.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jboss-logging</artifactId>
+					<groupId>org.jboss.logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
+
+		<dependency>
+			<artifactId>jboss-logging</artifactId>
+			<groupId>org.jboss.logging</groupId>
+			<version>3.1.0.CR2</version>
+			<scope>runtime</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.jboss.solder</groupId>
 			<artifactId>solder-impl</artifactId>
@@ -313,12 +336,7 @@
 			<version>1.9.3</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.1.1</version>
-			<scope>provided</scope>
-		</dependency>
+
 
 		<!-- Needed for running tests (you may also use TestNG) -->
 		<dependency>
@@ -415,11 +433,6 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
-				<configuration>
-					<!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
 			</plugin>
 			<!-- The JBoss AS plugin deploys your war to a local JBoss AS container -->
 			<!-- To use, set the JBOSS_HOME environment variable and run: mvn package 
@@ -437,6 +450,15 @@
 					<version>2.11</version>
 					<configuration>
 						<skip>false</skip>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.1.1</version>
+					<configuration>
+						<!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
+						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
 			</plugins>
@@ -464,7 +486,39 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>jbossas-7</id>
+			<dependencies>
 
+				<dependency>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpclient</artifactId>
+					<version>4.1.1</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<webResources>
+								<resource>
+									<directory>src/main/resources-jbossas7</directory>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+		</profile>
 
 		<profile>
 			<!-- We add the JBoss repository as we need the JBoss AS connectors for 
@@ -489,18 +543,25 @@
 					<artifactId>jboss-javaee-6.0</artifactId>
 					<type>pom</type>
 				</dependency>
-
 			</dependencies>
 			<build>
 				<plugins>
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
 					</plugin>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<webResources>
+								<resource>
+									<directory>src/main/resources-jbossas7</directory>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
-
-
 	</profiles>
 
 	<repositories>
